@@ -1,0 +1,75 @@
+02:05:49,994 - ERROR - Failed to parse response as TQueryEntities: 2 validation errors for TQueryEntities
+named
+  Field required [type=missing, input_value={'request': {'query': {'t...{'type': 'string'}}}}}}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing
+generic
+  Field required [type=missing, input_value={'request': {'query': {'t...{'type': 'string'}}}}}}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing. Response text: {
+  "request": {
+    "query": {
+      "type": "structured",
+      "parameters": {
+        "query": {
+          "type": "string",
+          "value": "initial mouth cancer evaluation and staging"
+        }
+      }
+    },
+    "response": {
+      "type": "array",
+      "items": {
+        "type": "object
+2026-03-03 02:05:49,995 - ERROR - Error sending message to Ollama
+Traceback (most recent call last):
+
+  File "/Examples/fast-graphrag/fast_graphrag/_llm/_ollama.py", line 292, in _send_request
+    llm_response = response_model(**json_data)
+  File "/pydantic/main.py", line 250, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+pydantic_core._pydantic_core.ValidationError: 2 validation errors for TQueryEntities
+named
+  Field required [type=missing, input_value={'request': {'query': {'t...{'type': 'string'}}}}}}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing
+generic
+  Field required [type=missing, input_value={'request': {'query': {'t...{'type': 'string'}}}}}}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Examples/fast-graphrag/fast_graphrag/_llm/_ollama.py", line 298, in _send_request
+    raise LLMServiceNoResponseError(
+fast_graphrag._exceptions.LLMServiceNoResponseError: Failed to parse response as TQueryEntities: 2 validation errors for TQueryEntities
+named
+  Field required [type=missing, input_value={'request': {'query': {'t...{'type': 'string'}}}}}}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing
+generic
+  Field required [type=missing, input_value={'request': {'query': {'t...{'type': 'string'}}}}}}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing
+2026-03-03 02:05:50,007 - ERROR - Error during query: Failed to parse response as TQueryEntities: 2 validation errors for TQueryEntities
+named
+  Field required [type=missing, input_value={'request': {'query': {'t...{'type': 'string'}}}}}}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing
+generic
+  Field required [type=missing, input_value={'request': {'query': {'t...{'type': 'string'}}}}}}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing
+2026-03-03 02:05:50,008 - ERROR - ❌ Error processing question Medical-fce3c59a: Failed to parse response as TQueryEntities: 2 validation errors for TQueryEntities
+named
+  Field required [type=missing, input_value={'request': {'query': {'t...{'type': 'string'}}}}}}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing
+generic
+  Field required [type=missing, input_value={'request': {'query': {'t...{'type': 'string'}}}}}}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing
+Answering questions for Medical: 100%|███████████████████████████████████████████▊| 2056/2062 [4:19:33<00:34,  5.79s/it]2026-03-03 02:15:18,720 - ERROR - Error sending message to Ollama
+Traceback (most recent call last):
+  File "/Examples/fast-graphrag/fast_graphrag/_llm/_ollama.py", line 292, in _send_request
+    llm_response = response_model(**json_data)
+  File "/pydantic/main.py", line 250, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+  File "/Examples/fast-graphrag/fast_graphrag/_models.py", line 112, in uppercase_named
+    return [e.upper() for e in value] if value else value
+  File "/Examples/fast-graphrag/fast_graphrag/_models.py", line 112, in <listcomp>
+    return [e.upper() for e in value] if value else value
+AttributeError: 'list' object has no attribute 'upper'
+2026-03-03 02:15:18,731 - ERROR - Error during query: 'list' object has no attribute 'upper'
+2026-03-03 02:15:18,732 - ERROR - ❌ Error processing question Medical-2e1ccbe9: 'list' object has no attribute 'upper'

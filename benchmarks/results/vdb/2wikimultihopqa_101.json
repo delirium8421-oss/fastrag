@@ -1,0 +1,1866 @@
+[
+    {
+        "answer": "",
+        "evidence": [
+            "Lothair II",
+            "Waldrada of Lotharingia",
+            "Bertha, daughter of Lothair II",
+            "Teutberga",
+            "Adolf I of Lotharingia",
+            "Ermengarde of Tours",
+            "Otto I, Count of Burgundy",
+            "Lambert, Margrave of Tuscany"
+        ],
+        "question": "When did Lothair Ii's mother die?",
+        "ground_truth": [
+            "Lothair II",
+            "Ermengarde of Tours"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Aas Ka Panchhi",
+            "Phoolwari",
+            "Phalitamsha",
+            "Abhishek Saxena",
+            "Ek Hi Bhool (1940 film)",
+            "Ek Hi Bhool",
+            "It's a Wonderful Afterlife",
+            "Agni (2004 film)"
+        ],
+        "question": "Which film was released first, Aas Ka Panchhi or Phoolwari?",
+        "ground_truth": [
+            "Aas Ka Panchhi",
+            "Phoolwari"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Changed It",
+            "Place of birth",
+            "Caspar Babypants",
+            "Andrew Allen (singer)",
+            "R. Charlton (poet/songwriter)",
+            "Donnie Elbert",
+            "Am I Wrong (\u00c9tienne de Cr\u00e9cy song)",
+            "Corey Snide"
+        ],
+        "question": "What is the place of birth of the performer of song Changed It?",
+        "ground_truth": [
+            "Changed It",
+            "Nicki Minaj"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Marufabad",
+            "Nasamkhrali",
+            "Runmar\u00f6",
+            "Khalid al-Habib",
+            "Hassan Zee",
+            "Jawty",
+            "Mohammad Ilyas (cricketer)",
+            "Lubnowy"
+        ],
+        "question": "Are Marufabad and Nasamkhrali both located in the same country?",
+        "ground_truth": [
+            "Marufabad",
+            "Nasamkhrali"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "God's Gift to Women",
+            "Edith Carlmar",
+            "Henrik Ruben Genz",
+            "Aldri annet enn br\u00e5k",
+            "Altid ballade",
+            "It's a Wonderful Afterlife",
+            "Gurinder Chadha",
+            "The Very Merry Widows"
+        ],
+        "question": "Which film has the director who is older, God'S Gift To Women or Aldri Annet Enn Br\u00e5k?",
+        "ground_truth": [
+            "God's Gift to Women",
+            "Aldri annet enn br\u00e5k",
+            "Michael Curtiz",
+            "Edith Carlmar"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "The Heart of Doreon",
+            "To the Heart",
+            "Alberto De Martino",
+            "El Tonto",
+            "Luis Mandoki",
+            "Leopoldo Torres R\u00edos",
+            "Fernando Cort\u00e9s",
+            "The Fabulous Senorita"
+        ],
+        "question": "Which film whose director was born first, El Tonto or The Heart Of Doreon?",
+        "ground_truth": [
+            "El Tonto",
+            "The Heart of Doreon",
+            "Charlie Day",
+            "Robert North Bradbury"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Andy Summers",
+            "Aivar Kuusmaa",
+            "Aarno Sulkanen",
+            "Andrea Corr",
+            "Sven Ulric Palme",
+            "William August, Duke of Saxe-Eisenach",
+            "Andrew Upton",
+            "Adam Horovitz (poet)"
+        ],
+        "question": "Who was born first out of Aivar Kuusmaa and Andy Summers?",
+        "ground_truth": [
+            "Aivar Kuusmaa",
+            "Andy Summers"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Raghnall Mac Ruaidhr\u00ed",
+            "Ruaidhr\u00ed Mac Ruaidhr\u00ed",
+            "Patrick Ladeen Curran",
+            "Conchobar mac Nessa",
+            "D\u00e1ith\u00ed Sproule",
+            "Doria Ragland",
+            "Rumbold of Mechelen",
+            "Brancaleone Doria"
+        ],
+        "question": "Who is Raghnall Mac Ruaidhr\u00ed's paternal grandfather?",
+        "ground_truth": [
+            "Raghnall Mac Ruaidhr\u00ed",
+            "Ruaidhr\u00ed Mac Ruaidhr\u00ed"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Interview with a Hitman",
+            "Ky\u014den Kobanzame",
+            "Henrik Ruben Genz",
+            "Bons Baisers de Hong Kong",
+            "Luis Mandoki",
+            "Perry Bhandal",
+            "Good People (film)",
+            "Ian Barry (director)"
+        ],
+        "question": "Do both films Interview With A Hitman and The Last Coupon have the directors from the same country?",
+        "ground_truth": [
+            "Interview with a Hitman",
+            "The Last Coupon",
+            "Perry Bhandal",
+            "Frank Launder"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Blood Street",
+            "Jackie Kong",
+            "Ian Barry (director)",
+            "Dark River (2017 film)",
+            "Po-Chih Leong",
+            "Luis Mandoki",
+            "Charles Leavitt",
+            "Henrik Ruben Genz"
+        ],
+        "question": "What nationality is the director of film Blood Street?",
+        "ground_truth": [
+            "Blood Street",
+            "Leo Fong"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Gaby: A True Story",
+            "Coney Island Baby (film)",
+            "Luis Mandoki",
+            "Henrik Ruben Genz",
+            "In the City of Sylvia",
+            "It's a Wonderful Afterlife",
+            "Gurinder Chadha",
+            "Diane Kurys"
+        ],
+        "question": "What is the place of birth of the director of film Gaby: A True Story?",
+        "ground_truth": [
+            "Gaby: A True Story",
+            "Luis Mandoki"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Vasilyevsky Island",
+            "Preobrazheniya Island",
+            "Henry Island (Nova Scotia)",
+            "Jel\u00f8ya",
+            "Fairbank Island (Michigan)",
+            "Sula Island",
+            "Pritzerbe Ferry",
+            "Ingmars\u00f6"
+        ],
+        "question": "Are Vasilyevsky Island and Preobrazheniya Island located in the same country?",
+        "ground_truth": [
+            "Vasilyevsky Island",
+            "Preobrazheniya Island"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "When the Stars Go Blue",
+            "Andrew Allen (singer)",
+            "Luke Elliot",
+            "Billy Milano",
+            "Me and Bobby McGee",
+            "Jack Lee (musician)",
+            "Kristian Leontiou",
+            "Isaac Schwartz"
+        ],
+        "question": "What nationality is the performer of song When The Stars Go Blue?",
+        "ground_truth": [
+            "When the Stars Go Blue",
+            "Ryan Adams"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Me and Bobby McGee",
+            "Me and Bobby and Bobby's Brother",
+            "Roger Miller",
+            "Fred Foster",
+            "Jim Bob",
+            "Chuck Berry",
+            "Janis Joplin",
+            "When the Stars Go Blue"
+        ],
+        "question": "Who is the child of the performer of song Me And Bobby Mcgee?",
+        "ground_truth": [
+            "Me and Bobby McGee",
+            "Roger Miller"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Maurice, Prince of Orange",
+            "William the Silent",
+            "Frederick William, Prince of Nassau-Weilburg",
+            "Marianus V of Arborea",
+            "Frederick Augustus, Duke of Nassau",
+            "Adolf of Nassau (1540\u20131568)",
+            "Brancaleone Doria",
+            "Philip IV, Count of Nassau-Weilburg"
+        ],
+        "question": "Where was the place of death of Maurice, Prince Of Orange's father?",
+        "ground_truth": [
+            "Maurice, Prince of Orange",
+            "William the Silent"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Aleksander Koniecpolski (1620\u20131659)",
+            "Aleksander Koniecpolski (1555\u20131609)",
+            "Stanis\u0142aw Koniecpolski",
+            "Aleksander Ford",
+            "Nicholas the Small",
+            "Christian August, Prince of Anhalt-Zerbst",
+            "Coulson Wallop",
+            "Ludwig von Westphalen"
+        ],
+        "question": "Which country Aleksander Koniecpolski (1620\u20131659)'s father is from?",
+        "ground_truth": [
+            "Aleksander Koniecpolski (1620\u20131659)",
+            "Stanis\u0142aw Koniecpolski"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Madame la Presidente",
+            "Henri Lepage (director)",
+            "Andrea Bianchi",
+            "Georges Lautner",
+            "Sins of Madeleine",
+            "Julie Dash",
+            "The Fabulous Senorita",
+            "Alberto De Martino"
+        ],
+        "question": "What is the date of death of the director of film Madame La Presidente?",
+        "ground_truth": [
+            "Madame la Presidente",
+            "Frank Lloyd"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Wrong Turn 5: Bloodlines",
+            "Dark River (2017 film)",
+            "Dark River (1990 film)",
+            "Wrong Turn 2: Dead End",
+            "Wrong Turn 3: Left for Dead",
+            "Declan O'Brien",
+            "Wrong Turn 4: Bloody Beginnings",
+            "Good People (film)"
+        ],
+        "question": "Do both directors of films Wrong Turn 5: Bloodlines and Dark River (2017 Film) have the same nationality?",
+        "ground_truth": [
+            "Wrong Turn 5: Bloodlines",
+            "Dark River (2017 film)",
+            "Declan O'Brien",
+            "Clio Barnard"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "The Goose Girl (1957 film)",
+            "You Can No Longer Remain Silent",
+            "The Past of Mary Holmes",
+            "Dead Man's Eyes",
+            "Ky\u014den Kobanzame",
+            "South of the Clouds (2004 film)",
+            "Dying God",
+            "Dark River (2017 film)"
+        ],
+        "question": "Which film has the director who died first, The Goose Woman or You Can No Longer Remain Silent?",
+        "ground_truth": [
+            "The Goose Woman",
+            "You Can No Longer Remain Silent",
+            "Clarence Brown",
+            "Robert A. Stemmle"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "The Private Life of Cinema",
+            "The Private Life of a Modern Woman",
+            "The Private Life of Pyotr Vinogradov",
+            "Georges Lautner",
+            "The Private Life of Helen of Troy",
+            "The Private Life of Louis XIV",
+            "Henri Lepage (director)",
+            "\u00c9douard Niermans (director)"
+        ],
+        "question": "Where was the director of film The Private Life Of Cinema born?",
+        "ground_truth": [
+            "The Private Life of Cinema",
+            "Denys Desjardins"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Coulson Wallop",
+            "John Wallop, 2nd Earl of Portsmouth",
+            "Theodore Salisbury Woolsey",
+            "Wyndham Goold",
+            "Wale Adebanwi",
+            "Theodore Salisbury Woolsey Jr.",
+            "Frank Lloyd",
+            "J. W. N. Sullivan"
+        ],
+        "question": "Where did Coulson Wallop's father study?",
+        "ground_truth": [
+            "Coulson Wallop",
+            "John Wallop, 2nd Earl of Portsmouth"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "John Middleton Murry",
+            "John Middleton Murry Jr.",
+            "John Middleton (architect)",
+            "Katherine Mansfield",
+            "Anne Estelle Rice",
+            "The Marriage of William Ashe (1921 film)",
+            "Morley Roberts",
+            "Susan Moody"
+        ],
+        "question": "Why did John Middleton Murry's wife die?",
+        "ground_truth": [
+            "John Middleton Murry",
+            "Katherine Mansfield"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Billy Elliot",
+            "Billy Elliot the Musical Live",
+            "Corey Snide",
+            "Lee Hall (playwright)",
+            "James Lomas (actor)",
+            "Elliot Silverstein",
+            "Luke Elliot",
+            "Billy Milano"
+        ],
+        "question": "Where was the composer of film Billy Elliot born?",
+        "ground_truth": [
+            "Billy Elliot",
+            "Stephen Warbeck"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Lisbeth Palme",
+            "Sven Ulric Palme",
+            "Olof Palme",
+            "Lars Eliasson",
+            "The Private Life of Louis XIV",
+            "Edith Carlmar",
+            "Karin Palme",
+            "Holm J\u00f8lsen"
+        ],
+        "question": "What is the place of birth of Lisbeth Palme's husband?",
+        "ground_truth": [
+            "Lisbeth Palme",
+            "Olof Palme"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Dying God",
+            "3 Dots",
+            "Dots",
+            "Wrong Turn 3: Left for Dead",
+            "God's Gift to Women",
+            "My Three Angels (film)",
+            "The Heart of Doreon",
+            "Alberto De Martino"
+        ],
+        "question": "Which film came out first, 3 Dots or Dying God?",
+        "ground_truth": [
+            "3 Dots",
+            "Dying God"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Sisowath Kossamak",
+            "Norodom Suramarit",
+            "Obata Toramori",
+            "Lamprocles",
+            "Ogawa Mataji",
+            "Zhao Shoushan",
+            "Coulson Wallop",
+            "Saw Thanda"
+        ],
+        "question": "Who is the father-in-law of Sisowath Kossamak?",
+        "ground_truth": [
+            "Sisowath Kossamak",
+            "Norodom Suramarit"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Mugain",
+            "Minamoto no Chikako",
+            "Margaret of Bavaria, Marchioness of Mantua",
+            "Amy of Garmoran",
+            "Ogawa Mataji",
+            "Keku\u02bbiapoiwa II",
+            "Vera Mileti\u0107",
+            "Margaret Paleologa"
+        ],
+        "question": "Who is Mugain's mother-in-law?",
+        "ground_truth": [
+            "Mugain",
+            "Conchobar mac Nessa"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Theodore Salisbury Woolsey",
+            "Theodore Salisbury Woolsey Jr.",
+            "Theodore Dwight Woolsey",
+            "J. W. N. Sullivan",
+            "James A. Kowalski",
+            "Sir Thomas Wheate, 2nd Baronet",
+            "Jesse E. Hobson",
+            "Coulson Wallop"
+        ],
+        "question": "Where did Theodore Salisbury Woolsey's father study?",
+        "ground_truth": [
+            "Theodore Salisbury Woolsey",
+            "Theodore Dwight Woolsey"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "The Return of Swamp Thing",
+            "Swamp Thing (film)",
+            "Dick Durock",
+            "Declan O'Brien",
+            "I Cover the Underworld",
+            "Jim Wynorski",
+            "The Return of Jack Slade",
+            "Jason Moore (director)"
+        ],
+        "question": "What is the place of birth of the director of film The Return Of Swamp Thing?",
+        "ground_truth": [
+            "The Return of Swamp Thing",
+            "Jim Wynorski"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "I Can't See Myself Leaving You",
+            "Leaving You",
+            "Roger Miller",
+            "Where Was I",
+            "Janis Joplin",
+            "Valley of Death",
+            "Me and Bobby McGee",
+            "Donnie Elbert"
+        ],
+        "question": "Where was the place of death of the performer of song I Can'T See Myself Leaving You?",
+        "ground_truth": [
+            "I Can't See Myself Leaving You",
+            "Aretha Franklin"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "I'll Be Going Now",
+            "I'm Nobody's Sweetheart Now",
+            "Michael Curtiz",
+            "Ian Barry (director)",
+            "Frank Launder",
+            "David Bradley (director)",
+            "James Tinling",
+            "Gurinder Chadha"
+        ],
+        "question": "Which film has the director who was born later, Playing It Wild or I'Ll Be Going Now?",
+        "ground_truth": [
+            "Playing It Wild",
+            "I'll Be Going Now",
+            "William Duncan (actor)",
+            "Dino Risi"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Beatrice I, Countess of Burgundy",
+            "Otto I, Count of Burgundy",
+            "Joan II, Countess of Burgundy",
+            "Isabella of Bourbon",
+            "Joan III, Countess of Burgundy",
+            "Bertha, daughter of Lothair II",
+            "Theobald of Arles",
+            "Matilda II, Countess of Nevers"
+        ],
+        "question": "What nationality is Beatrice I, Countess Of Burgundy's husband?",
+        "ground_truth": [
+            "Beatrice I, Countess of Burgundy",
+            "Frederick I, Holy Roman Emperor"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "45 Fathers",
+            "Alberto De Martino",
+            "David Bradley (director)",
+            "Michael Curtiz",
+            "Frank Launder",
+            "Once You're Born You Can No Longer Hide",
+            "Henrik Ruben Genz",
+            "Peter Hamel"
+        ],
+        "question": "Which film has the director born later, Christ Walking On The Water or 45 Fathers?",
+        "ground_truth": [
+            "Christ Walking on the Water",
+            "45 Fathers",
+            "Georges M\u00e9li\u00e8s",
+            "James Tinling"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Come Dance with Me (song)",
+            "Dance with Me (Kelly Clarkson song)",
+            "Ven a bailar conmigo",
+            "The Wallflower (Dance with Me, Henry)",
+            "Jack Lee (musician)",
+            "Joseph J. Sullivan (vaudeville)",
+            "Cuckoo Moray",
+            "Pam Mark Hall"
+        ],
+        "question": "Where was the performer of song Come Dance With Me (Song) born?",
+        "ground_truth": [
+            "Come Dance with Me (song)",
+            "Frank Sinatra"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Talk About a Stranger",
+            "Interview with a Hitman",
+            "David Bradley (director)",
+            "Michael Lehmann",
+            "Frank Launder",
+            "Henrik Ruben Genz",
+            "James Tinling",
+            "Luis Mandoki"
+        ],
+        "question": "Where does the director of film Talk About A Stranger work at?",
+        "ground_truth": [
+            "Talk About a Stranger",
+            "David Bradley (director)"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Holm J\u00f8lsen",
+            "Gideon Johnson Pillow",
+            "John Adolf, Duke of Holstein-Gottorp",
+            "Adolf, Duke of Holstein-Gottorp",
+            "Frederick II, Duke of Holstein-Gottorp",
+            "Barthold A. Butensch\u00f8n Sr.",
+            "Sven Ulric Palme",
+            "Lars Eliasson"
+        ],
+        "question": "Who was born later, Gideon Johnson Pillow or Holm J\u00f8lsen?",
+        "ground_truth": [
+            "Gideon Johnson Pillow",
+            "Holm J\u00f8lsen"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Inherent Vice (film)",
+            "DJ Vice",
+            "Alex Cox",
+            "Luis Mandoki",
+            "Silver Lake (film)",
+            "In the City of Sylvia",
+            "Palo Alto (2013 film)",
+            "Lloyd (film)"
+        ],
+        "question": "What is the place of birth of the composer of film Inherent Vice (Film)?",
+        "ground_truth": [
+            "Inherent Vice (film)",
+            "Jonny Greenwood"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Dangerously They Live",
+            "Julie Dash",
+            "I Cover the Underworld",
+            "Take It or Leave It (1981 film)",
+            "Illusions (1982 film)",
+            "Jackie Kong",
+            "Final Exam (1981 film)",
+            "The Return of Swamp Thing"
+        ],
+        "question": "Which film whose director is younger, Dangerously They Live or Salad By The Roots?",
+        "ground_truth": [
+            "Dangerously They Live",
+            "Salad by the Roots",
+            "Robert Florey",
+            "Georges Lautner"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Sylvia Burka",
+            "Dudley Beaumont",
+            "In the City of Sylvia",
+            "Sibylla of Burgundy, Duchess of Burgundy",
+            "Vera Mileti\u0107",
+            "Peter Burroughs",
+            "Francis William Beaumont",
+            "Sibyl Hathaway"
+        ],
+        "question": "Where did Sylvia Burka's husband die?",
+        "ground_truth": [
+            "Sylvia Burka",
+            "Jocelyn Lovell"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Pamela Ann Rymer",
+            "Ludwig Elsbett",
+            "Carol Rymer Davis",
+            "Pamela Bach",
+            "Fredericka Elisabeth of Saxe-Eisenach",
+            "The Private Life of Louis XIV",
+            "Princess Maria Elisabeth of Bavaria",
+            "Margaret of Bavaria, Electress Palatine"
+        ],
+        "question": "Who lived longer, Ludwig Elsbett or Pamela Ann Rymer?",
+        "ground_truth": [
+            "Ludwig Elsbett",
+            "Pamela Ann Rymer"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Gladiators Seven",
+            "Phalitamsha",
+            "Abhishek Saxena",
+            "Gunan, King of the Barbarians",
+            "Bommalattam (2008 film)",
+            "Michael Lehmann",
+            "One and Five",
+            "Kabani Nadi Chuvannappol"
+        ],
+        "question": "Which film whose director is younger, Phalitamsha or Gladiators Seven?",
+        "ground_truth": [
+            "Phalitamsha",
+            "Gladiators Seven",
+            "Puttanna Kanagal",
+            "Alberto De Martino"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "The Blue Collar Worker and the Hairdresser in a Whirl of Sex and Politics",
+            "Henry Goes Arizona",
+            "Michael Curtiz",
+            "Harry & Son",
+            "A Kind of America",
+            "Love, Honor and Goodbye",
+            "The Hairdresser",
+            "Jim Wynorski"
+        ],
+        "question": "Which film has the director who was born later, Henry Goes Arizona or The Blue Collar Worker And The Hairdresser In A Whirl Of Sex And Politics?",
+        "ground_truth": [
+            "Henry Goes Arizona",
+            "The Blue Collar Worker and the Hairdresser in a Whirl of Sex and Politics",
+            "Edwin L. Marin",
+            "Lina Wertm\u00fcller"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Hywel Teifi Edwards",
+            "Felix Schuster",
+            "Edwin Richards (field hockey)",
+            "Sir John McEwen, 1st Baronet",
+            "John Ernest, Duke of Saxe-Eisenach",
+            "Albert Thompson (footballer, born 1912)",
+            "Prince Ferdinand of Hohenzollern",
+            "Fredericka Elisabeth of Saxe-Eisenach"
+        ],
+        "question": "Who was born first, Hywel Teifi Edwards or Felix Schuster?",
+        "ground_truth": [
+            "Hywel Teifi Edwards",
+            "Felix Schuster"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Tombstone Rashomon",
+            "Waiting for the Clouds",
+            "Ky\u014den Kobanzame",
+            "South of the Clouds (2004 film)",
+            "Michael Curtiz",
+            "Dancing in the Rain (film)",
+            "Luis Mandoki",
+            "Robert Florey"
+        ],
+        "question": "Which film has the director who was born first, Tombstone Rashomon or Waiting For The Clouds?",
+        "ground_truth": [
+            "Tombstone Rashomon",
+            "Waiting for the Clouds",
+            "Alex Cox",
+            "Ye\u015fim Ustao\u011flu"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "B Boy (song)",
+            "Billy Milano",
+            "Corey Snide",
+            "Jim Bob",
+            "Me and Bobby and Bobby's Brother",
+            "DJ Clue",
+            "Do My...",
+            "Matt Corboy"
+        ],
+        "question": "Where was the performer of song B Boy (Song) detained?",
+        "ground_truth": [
+            "B Boy (song)",
+            "Meek Mill"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Illusions (1982 film)",
+            "It's a Wonderful Afterlife",
+            "Fortunella (film)",
+            "Wizards of the Lost Kingdom II",
+            "Final Exam (1981 film)",
+            "Duet for Four",
+            "Silver Lake (film)",
+            "Life Is What You Make It (film)"
+        ],
+        "question": "Which film has the director who was born later, Illusions (1982 Film) or It'S A Wonderful Afterlife?",
+        "ground_truth": [
+            "Illusions (1982 film)",
+            "It's a Wonderful Afterlife",
+            "Julie Dash",
+            "Gurinder Chadha"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Naked Tango",
+            "Algiers (film)",
+            "In the City of Sylvia",
+            "To the Heart",
+            "Una Noche (film)",
+            "Luis Mandoki",
+            "Salad by the Roots",
+            "The Palace of Angels"
+        ],
+        "question": "Are both movies, Naked Tango and Algiers (Film), from the same country?",
+        "ground_truth": [
+            "Naked Tango",
+            "Algiers (film)"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Sir Thomas Wheate, 1st Baronet",
+            "Sir Thomas Wheate, 2nd Baronet",
+            "Albert \u00c9douard Le Brethon de Caligny",
+            "Sir Thomas Beaumont, 1st Baronet",
+            "Sir Thomas Southwell, 1st Baronet",
+            "Coulson Wallop",
+            "Thomas Bramhall",
+            "Sir Roger Lort, 1st Baronet"
+        ],
+        "question": "Who lived longer, Sir Thomas Wheate, 1St Baronet or Albert \u00c9douard Le Brethon De Caligny?",
+        "ground_truth": [
+            "Sir Thomas Wheate, 1st Baronet",
+            "Albert \u00c9douard Le Brethon de Caligny"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "The Straw Hat",
+            "Isaac Schwartz",
+            "Hans J. Salter",
+            "Abe Meyer",
+            "Peter Hamel",
+            "Bert Grund",
+            "Henri Verdun",
+            "Kurt Schr\u00f6der"
+        ],
+        "question": "Where did the composer of film The Straw Hat die?",
+        "ground_truth": [
+            "The Straw Hat",
+            "Isaac Schwartz"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "A Nest of Noblemen",
+            "\u00c9douard Niermans (director)",
+            "Clio Barnard",
+            "Henrik Ruben Genz",
+            "Jim Wynorski",
+            "Ian Barry (director)",
+            "David Bradley (director)",
+            "Carl Haber"
+        ],
+        "question": "Where does the director of film A Nest Of Noblemen work at?",
+        "ground_truth": [
+            "A Nest of Noblemen",
+            "Vladimir Gardin"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Domenico Ravenna",
+            "Pierfelice Ravenna",
+            "Pietro Salini",
+            "Gino Ravenna",
+            "Pia Ravenna",
+            "Benedetto Ghirlandaio",
+            "Prince Ferdinando, Duke of Genoa (1822\u20131855)",
+            "Dino Risi"
+        ],
+        "question": "Were both Pietro Salini and Domenico Ravenna, born in the same place?",
+        "ground_truth": [
+            "Pietro Salini",
+            "Domenico Ravenna"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "John George II, Duke of Saxe-Eisenach",
+            "William August, Duke of Saxe-Eisenach",
+            "William, Duke of Saxe-Weimar",
+            "Christine of Hesse-Kassel (1578\u20131658)",
+            "John Adolf, Duke of Holstein-Gottorp",
+            "William of Bavaria-Munich",
+            "Christian August of Holstein-Gottorp, Prince of Eutin",
+            "Duke Clement Francis of Bavaria"
+        ],
+        "question": "Who is the father-in-law of John Ernest, Duke Of Saxe-Eisenach?",
+        "ground_truth": [
+            "John Ernest, Duke of Saxe-Eisenach",
+            "Christine of Hesse-Kassel (1578\u20131658)"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Palo Alto (2013 film)",
+            "Inherent Vice (film)",
+            "David Bradley (director)",
+            "Zoe Levin",
+            "Ian Barry (director)",
+            "El Tonto",
+            "Coney Island Baby (film)",
+            "Jack Kilmer"
+        ],
+        "question": "Who is the father of the director of film Palo Alto (2013 Film)?",
+        "ground_truth": [
+            "Palo Alto (2013 film)",
+            "Gia Coppola"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Los Pagares de Mendieta",
+            "Luis Mandoki",
+            "Mary Parets",
+            "Ger\u00f3nimo de Mendieta",
+            "Fernando Cort\u00e9s",
+            "Gaby: A True Story",
+            "Francisco Rovira Beleta",
+            "My Three Merry Widows"
+        ],
+        "question": "Who is the child of the director of film Los Pagares De Mendieta?",
+        "ground_truth": [
+            "Los Pagares de Mendieta",
+            "Leopoldo Torres R\u00edos"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Levon Ashotovich Grigorian",
+            "L\u00e9von Sayan",
+            "Leo V, King of Armenia",
+            "Dmitry Grigorieff",
+            "Dmytro Yavornytsky",
+            "Jovan Markovski",
+            "Lyon Cohen",
+            "Vladimir Gardin"
+        ],
+        "question": "Who lived longer, Hubert Mordek or Levon Ashotovich Grigorian?",
+        "ground_truth": [
+            "Hubert Mordek",
+            "Levon Ashotovich Grigorian"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "My Three Merry Widows",
+            "The Very Merry Widows",
+            "It's a Wonderful Afterlife",
+            "Eldon Howard",
+            "The Marriage of Princess Demidoff",
+            "My Three Angels (film)",
+            "Andrew Upton",
+            "Edwin L. Marin"
+        ],
+        "question": "Who is the spouse of the director of film My Three Merry Widows?",
+        "ground_truth": [
+            "My Three Merry Widows",
+            "Fernando Cort\u00e9s"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Henri Verdun",
+            "Jonny Greenwood",
+            "Stephen Warbeck",
+            "Walter Ulfig",
+            "Bert Grund",
+            "Kurt Schr\u00f6der",
+            "Hans J. Salter",
+            "Thomas Morse"
+        ],
+        "question": "Which country the composer of film Thunder On The Hill is from?",
+        "ground_truth": [
+            "Thunder on the Hill",
+            "Hans J. Salter"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Arr\u00eate ton cin\u00e9ma",
+            "Agni (2004 film)",
+            "Dying God",
+            "Georges Lautner",
+            "Bombay Dreams (film)",
+            "Blind Man (film)",
+            "Henrik Ruben Genz",
+            "\u00c9douard Niermans (director)"
+        ],
+        "question": "Which film has the director born later, Arr\u00eate Ton Cin\u00e9ma or Agni (2004 Film)?",
+        "ground_truth": [
+            "Arr\u00eate ton cin\u00e9ma",
+            "Agni (2004 film)",
+            "Diane Kurys",
+            "Swapan Saha"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Karel Zich",
+            "Werner Mensching",
+            "Frederic Zelnik",
+            "Karl von Czyhlarz",
+            "Henry I of Zi\u0119bice",
+            "Hubert Mordek",
+            "Gus Meins",
+            "Peter Hamel"
+        ],
+        "question": "Who died earlier, Werner Mensching or Karel Zich?",
+        "ground_truth": [
+            "Werner Mensching",
+            "Karel Zich"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Princess Maria Elisabeth of Bavaria",
+            "Duke Clement Francis of Bavaria",
+            "William of Bavaria-Munich",
+            "Albrecht, Duke of Bavaria",
+            "Princess Auguste of Bavaria (1875\u20131964)",
+            "Princess Pilar of Bavaria",
+            "Princess Victoria of Saxe-Coburg and Gotha",
+            "Margaret of Bavaria, Electress Palatine"
+        ],
+        "question": "Where did Prince Ferdinand Of Bavaria's mother die?",
+        "ground_truth": [
+            "Prince Ferdinand of Bavaria",
+            "Infanta Mar\u00eda de la Paz of Spain"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Coney Island Baby (film)",
+            "Henrik Ruben Genz",
+            "It's a Wonderful Afterlife",
+            "Ian Barry (director)",
+            "Interview with a Hitman",
+            "Dark River (2017 film)",
+            "Clio Barnard",
+            "Ky\u014den Kobanzame"
+        ],
+        "question": "Who is the child of the director of film An Event?",
+        "ground_truth": [
+            "An Event",
+            "Vatroslav Mimica"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Good People (film)",
+            "Henrik Ruben Genz",
+            "Peter Levin",
+            "Luis Mandoki",
+            "It's a Wonderful Afterlife",
+            "Ian Barry (director)",
+            "Po-Chih Leong",
+            "The Merry Gentleman"
+        ],
+        "question": "What nationality is the director of film Good People (Film)?",
+        "ground_truth": [
+            "Good People (film)",
+            "Henrik Ruben Genz"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Gare de Namps-Quevauvillers",
+            "Gare de La Roche-sur-Yon",
+            "Gare de Bouaye",
+            "Gare de Machecoul",
+            "Gare de Montreuil-Bellay",
+            "Gare de Challans",
+            "Gare de Boulogne-Ville",
+            "Gare de Charleville-M\u00e9zi\u00e8res"
+        ],
+        "question": "Are Gare De La Roche-Sur-Yon and Gare De Namps-Quevauvillers both located in the same country?",
+        "ground_truth": [
+            "Gare de La Roche-sur-Yon",
+            "Gare de Namps-Quevauvillers"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Fortunella (film)",
+            "Robert Florey",
+            "Edith Carlmar",
+            "Frank Launder",
+            "Fascination (2004 film)",
+            "The Fabulous Senorita",
+            "Coney Island Baby (film)",
+            "Charles Lamont"
+        ],
+        "question": "What is the place of birth of the director of film Fortunella (Film)?",
+        "ground_truth": [
+            "Fortunella (film)",
+            "Eduardo De Filippo"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Joanna Elisabeth of Holstein-Gottorp",
+            "John Adolf, Duke of Holstein-Gottorp",
+            "Duchess Marie Elisabeth of Saxony",
+            "Frederick II, Duke of Holstein-Gottorp",
+            "Augusta Marie of Holstein-Gottorp",
+            "Christine of Hesse",
+            "John George II, Duke of Saxe-Eisenach",
+            "Fredericka Elisabeth of Saxe-Eisenach"
+        ],
+        "question": "Where was the husband of Joanna Elisabeth Of Holstein-Gottorp born?",
+        "ground_truth": [
+            "Joanna Elisabeth of Holstein-Gottorp",
+            "Christian August, Prince of Anhalt-Zerbst"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Abdul-Aziz bin Muhammad",
+            "Abdul Aziz bin Musaid",
+            "Abdul Aziz bin Fahd",
+            "Abd al-Muttalib",
+            "Abdul Aziz Abdul Majid",
+            "Abdul Aziz Baba",
+            "Al-Qassab",
+            "Muhammad bin Saud"
+        ],
+        "question": "Where was the place of death of Abdul-Aziz Bin Muhammad's father?",
+        "ground_truth": [
+            "Abdul-Aziz bin Muhammad",
+            "Muhammad bin Saud"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Love, Honor and Oh-Baby!",
+            "Love, Honor, and Oh Baby!",
+            "Love, Honor and Obey",
+            "Love, Honor and Goodbye",
+            "Oh, Baby! (film)",
+            "Coney Island Baby (film)",
+            "Zulu Love Letter",
+            "Final Exam (1981 film)"
+        ],
+        "question": "Which film has the director who died later, Love, Honor And Oh-Baby! or I Cover The Underworld?",
+        "ground_truth": [
+            "Love, Honor and Oh-Baby!",
+            "I Cover the Underworld",
+            "Charles Lamont",
+            "R. G. Springsteen"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "The Circus Cyclone",
+            "The Circus Clown",
+            "Michael Curtiz",
+            "Coney Island Baby (film)",
+            "Clio Barnard",
+            "David Bradley (director)",
+            "Robert Florey",
+            "James Tinling"
+        ],
+        "question": "Where was the director of film The Circus Cyclone born?",
+        "ground_truth": [
+            "The Circus Cyclone",
+            "Albert S. Rogell"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Wizards of the Lost Kingdom II",
+            "Final Exam (1981 film)",
+            "Wizards of the Lost Kingdom",
+            "Ky\u014den Kobanzame",
+            "Bons Baisers de Hong Kong",
+            "Gunan, King of the Barbarians",
+            "Jim Wynorski",
+            "A Kind of America"
+        ],
+        "question": "Are the movies Wizards Of The Lost Kingdom and Final Exam (1981 Film), from the same country?",
+        "ground_truth": [
+            "Wizards of the Lost Kingdom",
+            "Final Exam (1981 film)"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Bayernhof Music Museum",
+            "Museum of Croatian Archaeological Monuments",
+            "Danish Music Museum",
+            "Estonian Theatre and Music Museum",
+            "Geological Museum of the State Geological Institute",
+            "Albert III, Duke of Bavaria",
+            "William of Bavaria-Munich",
+            "Albrecht, Duke of Bavaria"
+        ],
+        "question": "Which museum was established first, Museum Of Croatian Archaeological Monuments or Bayernhof Music Museum?",
+        "ground_truth": [
+            "Museum of Croatian Archaeological Monuments",
+            "Bayernhof Music Museum"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Christopher Newton",
+            "Christopher Newton (criminal)",
+            "Frances M. Vega",
+            "David Newton (artist)",
+            "Antonio Commisso",
+            "Charles Francis Norton",
+            "Nayelly Hern\u00e1ndez",
+            "Andrew Upton"
+        ],
+        "question": "Are Christopher Newton (Criminal) and Frances M. Vega of the same nationality?",
+        "ground_truth": [
+            "Christopher Newton (criminal)",
+            "Frances M. Vega"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Robert Florey",
+            "Michael Curtiz",
+            "David Bradley (director)",
+            "Charles Lamont",
+            "Leopoldo Torres R\u00edos",
+            "Edwin L. Marin",
+            "Henri Lepage (director)",
+            "Alberto De Martino"
+        ],
+        "question": "Where did the director of film Dancing In The Rain (Film) die?",
+        "ground_truth": [
+            "Dancing in the Rain (film)",
+            "Bo\u0161tjan Hladnik"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Saw Thanda",
+            "Thulasi (1987 film)",
+            "Maria Thins",
+            "Phalitamsha",
+            "Albert Thompson (footballer, born 1912)",
+            "3 Dots",
+            "Stan Rice",
+            "Sisowath Kossamak"
+        ],
+        "question": "Where did Saw Thanda's husband die?",
+        "ground_truth": [
+            "Saw Thanda",
+            "Min Dikkha"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Crude Set Drama",
+            "The Room (film)",
+            "The Room",
+            "Inside the Room",
+            "In the Room",
+            "Dark River (2017 film)",
+            "A Kind of America",
+            "Aldri annet enn br\u00e5k"
+        ],
+        "question": "Did the movies Inside The Room and Crude Set Drama, originate from the same country?",
+        "ground_truth": [
+            "Inside the Room",
+            "Crude Set Drama"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "The Marriage of Princess Demidoff",
+            "The Marriage of Krechinsky",
+            "The Pocket-knife",
+            "The Korean Wedding Chest",
+            "Her First Romance",
+            "Sins of Madeleine",
+            "Henrik Ruben Genz",
+            "Date at Midnight"
+        ],
+        "question": "Which film has the director who was born earlier, The Marriage Of Princess Demidoff or The Pocket-Knife?",
+        "ground_truth": [
+            "The Marriage of Princess Demidoff",
+            "The Pocket-knife",
+            "Frederic Zelnik",
+            "Ben Sombogaart"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Return to Cabin by the Lake",
+            "Airheads",
+            "Jim Wynorski",
+            "Final Exam (1981 film)",
+            "Silver Lake (film)",
+            "The Return of Swamp Thing",
+            "Henrik Ruben Genz",
+            "Coney Island Baby (film)"
+        ],
+        "question": "Which film has the director who is older than the other, Airheads or Return To Cabin By The Lake? ",
+        "ground_truth": [
+            "Airheads",
+            "Return to Cabin by the Lake",
+            "Michael Lehmann",
+            "Po-Chih Leong"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Pirates of the Sky",
+            "Pirates of Treasure Island",
+            "Pirates of the Coast",
+            "Her First Romance",
+            "Romance of Celluloid",
+            "Romance of the Redwoods",
+            "The Room (film)",
+            "Captain Apache"
+        ],
+        "question": "Which film was released first, A Romance Of Seville or Pirates Of The Sky?",
+        "ground_truth": [
+            "A Romance of Seville",
+            "Pirates of the Sky"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Blind Man's Eyes",
+            "Lost in the Stratosphere",
+            "Blind Man (film)",
+            "Dead Man's Eyes",
+            "Michael Curtiz",
+            "The Private Life of Helen of Troy",
+            "Dancing in the Rain (film)",
+            "Frank Launder"
+        ],
+        "question": "Which film has the director died later, Lost In The Stratosphere or Blind Man'S Eyes?",
+        "ground_truth": [
+            "Lost in the Stratosphere",
+            "Blind Man's Eyes",
+            "Melville W. Brown",
+            "John Ince (actor)"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Am I Wrong (\u00c9tienne de Cr\u00e9cy song)",
+            "\u00c9tienne de Cr\u00e9cy",
+            "Renaud Garcia-Fons",
+            "Nguy\u00ean L\u00ea",
+            "Kristian Leontiou",
+            "Jacques D\u00e9combe",
+            "Bernie Bonvoisin",
+            "Andrew Allen (singer)"
+        ],
+        "question": "What nationality is the performer of song Am I Wrong (\u00c9tienne De Cr\u00e9cy Song)?",
+        "ground_truth": [
+            "Am I Wrong (\u00c9tienne de Cr\u00e9cy song)",
+            "\u00c9tienne de Cr\u00e9cy"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Marjatta Raita",
+            "John Edward Bruce",
+            "Bruce M. Mitchell",
+            "John Korty",
+            "R. G. Springsteen",
+            "James Randall Marsh",
+            "Eustace William Ferguson",
+            "David Bret"
+        ],
+        "question": "Who was born earlier, Marjatta Raita or Bruce Coulter?",
+        "ground_truth": [
+            "Marjatta Raita",
+            "Bruce Coulter"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Atomised (film)",
+            "It's a Wonderful Afterlife",
+            "Ian Barry (director)",
+            "Mommy Is at the Hairdresser's",
+            "Coney Island Baby (film)",
+            "Dana Blankstein",
+            "Jason Moore (director)",
+            "Eldon Howard"
+        ],
+        "question": "Who is the mother of the director of film Atomised (Film)?",
+        "ground_truth": [
+            "Atomised (film)",
+            "Oskar Roehler"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Juan Carlos Falc\u00f3n",
+            "Angus Wagner",
+            "Alberto Falc\u00f3n",
+            "Jos\u00e9 Luis Falc\u00f3n",
+            "Juan Carlos I of Spain",
+            "William Ferguson (pioneer)",
+            "Prince Ferdinand, Duke of Castro",
+            "Juan de Courten (elder)"
+        ],
+        "question": "Was Angus Wagner or Juan Carlos Falc\u00f3n born first?",
+        "ground_truth": [
+            "Angus Wagner",
+            "Juan Carlos Falc\u00f3n"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Henry I of Zi\u0119bice",
+            "Henry I, Count of Nassau-Siegen",
+            "Nicholas the Small",
+            "Henry of Langenstein",
+            "Wilhelm Heinrich, Duke of Saxe-Eisenach",
+            "Christian August, Prince of Anhalt-Zerbst",
+            "Aleksander Koniecpolski (1555\u20131609)",
+            "William August, Duke of Saxe-Eisenach"
+        ],
+        "question": "What is the date of birth of Henry I Of Zi\u0119bice's father?",
+        "ground_truth": [
+            "Henry I of Zi\u0119bice",
+            "Nicholas the Small"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Sammy Hagar",
+            "Renaud Garcia-Fons",
+            "David Lauser",
+            "Bernie Bonvoisin",
+            "Fred Foster",
+            "Alonso Mudarra",
+            "Fred Le Deux",
+            "Hans J. Salter"
+        ],
+        "question": "Was Sammy Hagar or Renaud Garcia-Fons born first?",
+        "ground_truth": [
+            "Sammy Hagar",
+            "Renaud Garcia-Fons"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "David Elliot (illustrator)",
+            "Eustace William Ferguson",
+            "David Elliot (footballer)",
+            "Don Elliot (rower)",
+            "David Elliot Loye",
+            "Billy Ferguson",
+            "Luke Elliot",
+            "Sir John McEwen, 1st Baronet"
+        ],
+        "question": "Do David Elliot (Illustrator) and Eustace William Ferguson share the same nationality?",
+        "ground_truth": [
+            "David Elliot (illustrator)",
+            "Eustace William Ferguson"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Back in the U.S.A.",
+            "W. Augustus Barratt",
+            "Caspar Babypants",
+            "Hans J. Salter",
+            "Ryan Adams",
+            "Luke Elliot",
+            "Jack Lee (musician)",
+            "Alexander Singer"
+        ],
+        "question": "Where was the composer of song Back In The U.S.A. born?",
+        "ground_truth": [
+            "Back in the U.S.A.",
+            "Chuck Berry"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Cheryl Saban",
+            "Dmitry Grigorieff",
+            "Levon Ashotovich Grigorian",
+            "Sylvia Burka",
+            "Vadim Vlasov",
+            "Mehdi Abrishamchi",
+            "Dorothy Granger",
+            "Dmitry Donskoy"
+        ],
+        "question": "Who is older, Cheryl Saban or Dmitry Grigorieff?",
+        "ground_truth": [
+            "Cheryl Saban",
+            "Dmitry Grigorieff"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Malabimba \u2013 The Malicious Whore",
+            "Zulu Love Letter",
+            "Kabani Nadi Chuvannappol",
+            "Vatroslav Mimica",
+            "Rumbi Katedza",
+            "The Blue Collar Worker and the Hairdresser in a Whirl of Sex and Politics",
+            "Luis Mandoki",
+            "Phalitamsha"
+        ],
+        "question": "Which film has the director who was born later, The First Day Of Freedom or Malabimba \u2013 The Malicious Whore?",
+        "ground_truth": [
+            "The First Day of Freedom",
+            "Malabimba \u2013 The Malicious Whore",
+            "Aleksander Ford",
+            "Andrea Bianchi"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Yuliya Baraley",
+            "Yulia Yasenok",
+            "Jorge Ledezma",
+            "Luis Mandoki",
+            "Vera Mileti\u0107",
+            "Gaby: A True Story",
+            "Ver\u00f3nica Mar\u00eda Ravenna",
+            "Frances M. Vega"
+        ],
+        "question": "Was Jorge Ledezma or Yuliya Baraley born first?",
+        "ground_truth": [
+            "Jorge Ledezma",
+            "Yuliya Baraley"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Sibyl Hathaway",
+            "Dudley Beaumont",
+            "Sibylla of Burgundy, Duchess of Burgundy",
+            "Christine of Hesse-Kassel (1578\u20131658)",
+            "Fredericka Elisabeth of Saxe-Eisenach",
+            "Teutberga",
+            "Cheryl Saban",
+            "Chantal de Chevron-Villette"
+        ],
+        "question": "Who is Sibyl Hathaway's child-in-law?",
+        "ground_truth": [
+            "Sibyl Hathaway",
+            "Francis William Beaumont"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Captain Apache",
+            "Sins of Madeleine",
+            "Alexander Singer",
+            "Michael Curtiz",
+            "Luis Mandoki",
+            "Alberto De Martino",
+            "Edwin L. Marin",
+            "Code of the Outlaw"
+        ],
+        "question": "Which film has the director born first, Sins Of Madeleine or Captain Apache?",
+        "ground_truth": [
+            "Sins of Madeleine",
+            "Captain Apache",
+            "Henri Lepage (director)",
+            "Alexander Singer"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Godomar II",
+            "Minamoto no Chikako",
+            "Keku\u02bbiapoiwa II",
+            "Bertha, daughter of Lothair II",
+            "Waldrada of Lotharingia",
+            "Marianus V of Arborea",
+            "Augusta Marie of Holstein-Gottorp",
+            "Margaret of Bavaria, Marchioness of Mantua"
+        ],
+        "question": "Who is Godomar Ii's stepmother?",
+        "ground_truth": [
+            "Godomar II",
+            "Gundobad"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Outlaw Express",
+            "The Outlaw Express",
+            "Code of the Outlaw",
+            "Robert North Bradbury",
+            "James Tinling",
+            "Edwin L. Marin",
+            "Alex Cox",
+            "Michael Curtiz"
+        ],
+        "question": "Where was the director of film The Outlaw Express born?",
+        "ground_truth": [
+            "The Outlaw Express",
+            "Leo D. Maloney"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Bons Baisers de Hong Kong",
+            "Jackie Kong",
+            "Blood Street",
+            "Bruce Leung",
+            "Robert Florey",
+            "Dead Man's Eyes",
+            "Final Exam (1981 film)",
+            "Charles Lamont"
+        ],
+        "question": "Which film has the director who died later, 45 Calibre Echo or Bons Baisers De Hong Kong?",
+        "ground_truth": [
+            "45 Calibre Echo",
+            "Bons Baisers de Hong Kong",
+            "Bruce M. Mitchell",
+            "Yvan Chiffre"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Lamprocles",
+            "Maximus of Tyre",
+            "Coulson Wallop",
+            "John Wallop, 2nd Earl of Portsmouth",
+            "Charles Lamont",
+            "Sir Roger Lort, 1st Baronet",
+            "Ludwig von Westphalen",
+            "Adolf I of Lotharingia"
+        ],
+        "question": "What nationality is Lamprocles's father?",
+        "ground_truth": [
+            "Lamprocles",
+            "Socrates"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "I Like Control",
+            "Billy Milano",
+            "Andrew Allen (singer)",
+            "Ven a bailar conmigo",
+            "Nicki Minaj",
+            "Luke Elliot",
+            "Changed It",
+            "O Valencia!"
+        ],
+        "question": "Which country the performer of song I Like Control is from?",
+        "ground_truth": [
+            "I Like Control",
+            "DJ Clue"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "The Palace of Angels",
+            "Romance on the Run",
+            "Her First Romance",
+            "A Romance of Seville",
+            "Romance of Celluloid",
+            "Bons Baisers de Hong Kong",
+            "My Three Angels (film)",
+            "Romance on the Range"
+        ],
+        "question": "Which film has the director born later, Romance On The Run or The Palace Of Angels?",
+        "ground_truth": [
+            "Romance on the Run",
+            "The Palace of Angels",
+            "Gus Meins",
+            "Walter Hugo Khouri"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Ek Hi Bhool (1940 film)",
+            "Ek Hi Bhool",
+            "Phoolwari",
+            "Her First Romance",
+            "Oh, Baby! (film)",
+            "Algiers (film)",
+            "Michael Curtiz",
+            "Cuckoo Moray"
+        ],
+        "question": "Which film has the director born first, Mord Em'Ly or Ek Hi Bhool (1940 Film)?",
+        "ground_truth": [
+            "Mord Em'ly",
+            "Ek Hi Bhool (1940 film)",
+            "George Pearson (filmmaker)",
+            "Vijay Bhatt"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "The Korean Wedding Chest",
+            "True to the Navy",
+            "The Wedding Chest",
+            "Henrik Ruben Genz",
+            "South of the Clouds (2004 film)",
+            "Michael Curtiz",
+            "Coney Island Baby (film)",
+            "Gurinder Chadha"
+        ],
+        "question": "Which film has the director born earlier, The Korean Wedding Chest or True To The Navy?",
+        "ground_truth": [
+            "The Korean Wedding Chest",
+            "True to the Navy",
+            "Ulrike Ottinger",
+            "Frank Tuttle"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Marianus V of Arborea",
+            "Marianus I of Arborea",
+            "Brancaleone Doria",
+            "Bertha, daughter of Lothair II",
+            "Margaret of Bavaria, Marchioness of Mantua",
+            "Augusta Marie of Holstein-Gottorp",
+            "Margaret Paleologa",
+            "Waldrada of Lotharingia"
+        ],
+        "question": "Who is Marianus V Of Arborea's mother?",
+        "ground_truth": [
+            "Marianus V of Arborea",
+            "Brancaleone Doria"
+        ]
+    },
+    {
+        "answer": "",
+        "evidence": [
+            "Margaret of Bavaria, Marchioness of Mantua",
+            "Margaret Paleologa",
+            "Margaret of Brieg",
+            "William of Bavaria-Munich",
+            "Duke Clement Francis of Bavaria",
+            "Bertha, daughter of Lothair II",
+            "Albert III, Duke of Bavaria",
+            "Princess Pilar of Bavaria"
+        ],
+        "question": "Who is the paternal grandfather of Margaret Of Bavaria, Marchioness Of Mantua?",
+        "ground_truth": [
+            "Margaret of Bavaria, Marchioness of Mantua",
+            "Albert III, Duke of Bavaria"
+        ]
+    }
+]
