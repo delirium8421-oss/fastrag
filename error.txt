@@ -1,3 +1,5 @@
+pydantic error : 
+
 02:05:49,994 - ERROR - Failed to parse response as TQueryEntities: 2 validation errors for TQueryEntities
 named
   Field required [type=missing, input_value={'request': {'query': {'t...{'type': 'string'}}}}}}}, input_type=dict]
