@@ -139,7 +139,7 @@ class OllamaLLMService(BaseLLMService):
     """LLM Service for Ollama models."""
 
     model: str = field(default="qwen2.5-14b-instruct")
-    timeout: int = field(default=600)
+    timeout: int = field(default=1800)  # Increased to 30 minutes for slow models
 
     def __post_init__(self):
         self.llm_max_requests_concurrent = (
@@ -200,7 +200,12 @@ class OllamaLLMService(BaseLLMService):
         @retry(
             stop=stop_after_attempt(3),
             wait=wait_exponential(multiplier=2, min=4, max=30),
-            retry=retry_if_exception_type((aiohttp.ClientConnectorError, aiohttp.ClientError)),
+            retry=retry_if_exception_type((
+                aiohttp.ClientConnectorError,
+                aiohttp.ClientError,
+                asyncio.TimeoutError,
+                LLMServiceNoResponseError
+            )),
         )
         async def _send_request():
             async with self.llm_max_requests_concurrent:
