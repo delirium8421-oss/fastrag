@@ -13,6 +13,7 @@ from fast_graphrag._llm import (
     OllamaLLMService,
     OllamaEmbeddingService,
 )
+from fast_graphrag._services import DefaultInformationExtractionService
 from transformers import AutoTokenizer, AutoModel
 from tqdm import tqdm
 
@@ -50,11 +51,23 @@ def process_corpus(
     llm_base_url: str,
     llm_api_key: str,
     questions: Dict[str, List[dict]],
-    sample: int
+    sample: int,
+    corpus_fraction: float = None,
+    questions_fraction: float = None
 ):
     """Process a single corpus: index it and answer its questions"""
     logging.info(f"📚 Processing corpus: {corpus_name}")
-    
+
+    # Truncate corpus if fraction specified
+    if corpus_fraction is not None:
+        if not 0 < corpus_fraction <= 1:
+            logging.error(f"❌ Invalid corpus_fraction: {corpus_fraction}. Must be between 0 and 1.")
+            return
+        original_length = len(context)
+        truncate_length = int(original_length * corpus_fraction)
+        context = context[:truncate_length]
+        logging.info(f"📉 Corpus truncated: {original_length} → {truncate_length} chars ({corpus_fraction*100:.1f}%)")
+
     # Prepare output directory
     output_dir = f"./results/fast-graphrag/{corpus_name}"
     os.makedirs(output_dir, exist_ok=True)
@@ -102,7 +115,7 @@ def process_corpus(
         )
         logging.info(f"✅ Using OpenAI-compatible LLM service: {model_name} at {llm_base_url}")
 
-    # Initialize GraphRAG
+    # Initialize GraphRAG with gleaning enabled
     grag = GraphRAG(
         working_dir=os.path.join(base_dir, corpus_name),
         domain=DOMAIN,
@@ -111,6 +124,10 @@ def process_corpus(
         config=GraphRAG.Config(
             llm_service=llm_service,
             embedding_service=embedding_service,
+            information_extraction_service_cls=lambda: DefaultInformationExtractionService(
+                graph_upsert=GraphRAG.Config().information_extraction_upsert_policy,
+                max_gleaning_steps=1  # Enable 1 gleaning iteration
+            ),
         ),
     )
     
@@ -123,12 +140,22 @@ def process_corpus(
     if not corpus_questions:
         logging.warning(f"⚠️ No questions found for corpus: {corpus_name}")
         return
-    
-    # Sample questions if requested
+
+    # Apply question fraction if specified
+    if questions_fraction is not None:
+        if not 0 < questions_fraction <= 1:
+            logging.error(f"❌ Invalid questions_fraction: {questions_fraction}. Must be between 0 and 1.")
+            return
+        original_count = len(corpus_questions)
+        limit_count = max(1, int(original_count * questions_fraction))
+        corpus_questions = corpus_questions[:limit_count]
+        logging.info(f"📉 Questions limited: {original_count} → {limit_count} ({questions_fraction*100:.1f}%)")
+
+    # Sample questions if requested (legacy parameter, overrides fraction)
     if sample and sample < len(corpus_questions):
         corpus_questions = corpus_questions[:sample]
-    
-    logging.info(f"🔍 Found {len(corpus_questions)} questions for {corpus_name}")
+
+    logging.info(f"🔍 Processing {len(corpus_questions)} questions for {corpus_name}")
     
     # Process questions
     results = []
@@ -152,10 +179,12 @@ def process_corpus(
                 "ground_truth": q.get("answer", "")
             })
         except Exception as e:
-            logging.error(f"❌ Error processing question {q.get('id')}: {e}")
+            error_msg = str(e)
+            logging.error(f"❌ Error processing question {q.get('id')}: {error_msg}")
             results.append({
                 "id": q["id"],
-                "error": str(e)
+                "question": q["question"],
+                "error": error_msg
             })
     
     # Save results
@@ -192,9 +221,15 @@ def main():
                         help="LLM model identifier")
     parser.add_argument("--embed_model_path", default="/home/xzs/data/model/bge-large-en-v1.5", 
                         help="HuggingFace model path (for API mode) or Ollama embedding model name (for ollama mode)")
-    parser.add_argument("--sample", type=int, default=None, 
+    parser.add_argument("--sample", type=int, default=None,
                         help="Number of questions to sample per corpus")
-    
+
+    # Corpus and questions filtering
+    parser.add_argument("--corpus_fraction", type=float, default=None,
+                        help="Fraction of corpus to use for indexing (0.0-1.0). E.g., 0.1 = 10%% of corpus")
+    parser.add_argument("--questions_fraction", type=float, default=None,
+                        help="Fraction of questions to answer (0.0-1.0). E.g., 0.5 = 50%% of questions")
+
     # API configuration
     parser.add_argument("--llm_base_url", default="https://api.openai.com/v1", 
                         help="Base URL for LLM API")
@@ -212,6 +247,10 @@ def main():
             logging.FileHandler(f"graphrag_{args.subset}.log")
         ]
     )
+
+    # Keep INFO level for main script, only suppress DEBUG from FastGraphRAG library
+    # This keeps useful progress logs while hiding verbose debug output
+    logging.getLogger("graphrag").setLevel(logging.INFO)
     
     logging.info(f"🚀 Starting GraphRAG processing for subset: {args.subset}")
     
@@ -246,9 +285,8 @@ def main():
         logging.error(f"❌ Failed to load corpus: {e}")
         return
     
-    # Sample corpus data if requested
-    if args.sample:
-        corpus_data = corpus_data[:1]
+    # Note: corpus_data not filtered here - filtering happens per-corpus in process_corpus()
+    # to allow for character-level truncation
     
     # Load question data
     try:
@@ -285,6 +323,8 @@ def main():
                 api_key,
                 grouped_questions,
                 args.sample,
+                args.corpus_fraction,
+                args.questions_fraction,
             ))
         results = await asyncio.gather(*tasks, return_exceptions=True)
         for r in results:

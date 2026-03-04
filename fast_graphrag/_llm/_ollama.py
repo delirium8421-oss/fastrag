@@ -286,9 +286,9 @@ class OllamaLLMService(BaseLLMService):
                                                     logger.warning(f"Validation error in Graph JSON: {error_msg}\nResponse: {response_text[:300]}")
                                                     raise ValueError(error_msg)
                                             
-                                            # DEBUG: Log the actual JSON data before validation
-                                            logger.error(f"🔍 DEBUG - Model: {model_name}")
-                                            logger.error(f"🔍 DEBUG - JSON Data: {json.dumps(json_data, indent=2)}")
+                                            # DEBUG: Log the actual JSON data before validation (only for debugging)
+                                            logger.debug(f"🔍 DEBUG - Model: {model_name}")
+                                            logger.debug(f"🔍 DEBUG - JSON Data: {json.dumps(json_data, indent=2)}")
 
                                             # Handle BaseModelAlias types which have a .Model inner class
                                             if issubclass(response_model, BaseModelAlias):

@@ -1,0 +1,160 @@
+# FastGraphRAG Pipeline Run Commands
+
+## Quick Test (1% corpus, 1% questions) - ~30 seconds
+
+```bash
+python run_fast-graphrag.py \
+  --subset medical \
+  --mode ollama \
+  --model_name qwen2.5-coder:3b \
+  --embed_model_path nomic-embed-text:v1.5 \
+  --llm_base_url http://127.0.0.1:11434 \
+  --corpus_fraction 0.01 \
+  --questions_fraction 0.01
+```
+
+## Quick Test (1% corpus, 1% questions) - One Line
+
+```bash
+python run_fast-graphrag.py --subset medical --mode ollama --model_name qwen2.5-coder:3b --embed_model_path nomic-embed-text:v1.5 --llm_base_url http://127.0.0.1:11434 --corpus_fraction 0.01 --questions_fraction 0.01
+```
+
+## Expected Output (1% test)
+
+- Corpus: 50,000 chars → 500 chars (1%)
+- Questions: 2,062 → 21 questions (1%)
+- Extraction time: ~30 seconds (with 3B model + gleaning=1)
+- Query time: ~10 seconds
+- **Total: ~40 seconds**
+
+## Small Test (5% corpus, 5% questions) - ~3 minutes
+
+```bash
+python run_fast-graphrag.py \
+  --subset medical \
+  --mode ollama \
+  --model_name qwen2.5-coder:3b \
+  --embed_model_path nomic-embed-text:v1.5 \
+  --llm_base_url http://127.0.0.1:11434 \
+  --corpus_fraction 0.05 \
+  --questions_fraction 0.05
+```
+
+## Medium Test (10% corpus, 10% questions) - ~5 minutes
+
+```bash
+python run_fast-graphrag.py \
+  --subset medical \
+  --mode ollama \
+  --model_name qwen2.5-coder:3b \
+  --embed_model_path nomic-embed-text:v1.5 \
+  --llm_base_url http://127.0.0.1:11434 \
+  --corpus_fraction 0.1 \
+  --questions_fraction 0.1
+```
+
+## Full Production Run (100% corpus, 100% questions) - ~48 minutes
+
+```bash
+python run_fast-graphrag.py \
+  --subset medical \
+  --mode ollama \
+  --model_name qwen2.5-coder:3b \
+  --embed_model_path nomic-embed-text:v1.5 \
+  --llm_base_url http://127.0.0.1:11434
+```
+
+## Novel Subset (1% test)
+
+```bash
+python run_fast-graphrag.py \
+  --subset novel \
+  --mode ollama \
+  --model_name qwen2.5-coder:3b \
+  --embed_model_path nomic-embed-text:v1.5 \
+  --llm_base_url http://127.0.0.1:11434 \
+  --corpus_fraction 0.01 \
+  --questions_fraction 0.01
+```
+
+## Using Different Ollama Models
+
+### With 7B model (faster, better quality)
+
+```bash
+python run_fast-graphrag.py \
+  --subset medical \
+  --mode ollama \
+  --model_name llama3.1:8b \
+  --embed_model_path nomic-embed-text:v1.5 \
+  --llm_base_url http://127.0.0.1:11434 \
+  --corpus_fraction 0.01 \
+  --questions_fraction 0.01
+```
+
+### With 0.5B model (slow, for comparison)
+
+```bash
+python run_fast-graphrag.py \
+  --subset medical \
+  --mode ollama \
+  --model_name qwen2.5-coder:0.5b \
+  --embed_model_path nomic-embed-text:v1.5 \
+  --llm_base_url http://127.0.0.1:11434 \
+  --corpus_fraction 0.01 \
+  --questions_fraction 0.01
+```
+
+## Performance Expectations (with 3B model)
+
+| Corpus % | Questions % | Corpus Chars | Questions Count | Est. Time |
+|----------|-------------|--------------|-----------------|-----------|
+| 1% | 1% | 500 | 21 | ~40 sec |
+| 5% | 5% | 2,500 | 103 | ~3 min |
+| 10% | 10% | 5,000 | 206 | ~5 min |
+| 25% | 25% | 12,500 | 516 | ~12 min |
+| 50% | 50% | 25,000 | 1,031 | ~24 min |
+| 100% | 100% | 50,000 | 2,062 | ~48 min |
+
+## Troubleshooting
+
+### If Ollama is not running:
+
+```bash
+# Start Ollama service
+ollama serve
+```
+
+### If model is not available:
+
+```bash
+# Pull the model first
+ollama pull qwen2.5-coder:3b
+ollama pull nomic-embed-text:v1.5
+```
+
+### Check available models:
+
+```bash
+ollama list
+```
+
+### View logs in real-time:
+
+```bash
+tail -f graphrag_medical.log
+```
+
+## Output Location
+
+Results are saved to:
+```
+./results/fast-graphrag/Medical/predictions_Medical.json
+```
+
+## Notes
+
+- Gleaning is enabled (max_gleaning_steps=1) for better quality
+- Logging shows INFO level (progress messages) and ERROR level (validation failures)
+- Use fraction parameters for quick iteration during development
+- Use full corpus (no fractions) for production evaluation
