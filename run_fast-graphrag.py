@@ -124,8 +124,8 @@ def process_corpus(
         config=GraphRAG.Config(
             llm_service=llm_service,
             embedding_service=embedding_service,
-            information_extraction_service_cls=lambda: DefaultInformationExtractionService(
-                graph_upsert=GraphRAG.Config().information_extraction_upsert_policy,
+            information_extraction_service_cls=lambda graph_upsert: DefaultInformationExtractionService(
+                graph_upsert=graph_upsert,
                 max_gleaning_steps=1  # Enable 1 gleaning iteration
             ),
         ),
