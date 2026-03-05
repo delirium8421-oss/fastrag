@@ -1,0 +1,2 @@
+2026-03-05 05:40:39,155 - ERROR - ❌ Task failed: process_corpus.<locals>.<lambda>() got an unexpected keyword argument 'graph_upsert'
+NoneType: None
