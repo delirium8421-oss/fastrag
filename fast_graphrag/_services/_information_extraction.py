@@ -74,19 +74,26 @@ class DefaultInformationExtractionService(BaseInformationExtractionService[TChun
             return None
 
     async def _gleaning(
-        self, llm: BaseLLMService, initial_graph: TGraph, history: list[dict[str, str]]
+        self, llm: BaseLLMService, initial_graph: TGraph, history: list[dict[str, str]], prompt_kwargs: Dict[str, str]
     ) -> Optional[TGraph]:
-        """Do gleaning steps until the llm says we are done or we reach the max gleaning steps."""
+        """Do gleaning steps until the llm says we are done or we reach the max gleaning steps.
+
+        Args:
+            llm: LLM service
+            initial_graph: Initial extracted graph
+            history: Conversation history
+            prompt_kwargs: Prompt formatting kwargs (must include 'domain', 'example_queries', 'entity_types')
+        """
         # Prompts
         current_graph = initial_graph
 
         try:
             for gleaning_count in range(self.max_gleaning_steps):
-                # Do gleaning step
+                # Do gleaning step - pass prompt_kwargs to avoid 'domain' KeyError
                 gleaning_result, history = await format_and_send_prompt(
                     prompt_key="entity_relationship_continue_extraction",
                     llm=llm,
-                    format_kwargs={},
+                    format_kwargs=prompt_kwargs,
                     response_model=TGraph,
                     history_messages=history,
                 )
@@ -103,7 +110,7 @@ class DefaultInformationExtractionService(BaseInformationExtractionService[TChun
                 gleaning_status, _ = await format_and_send_prompt(
                     prompt_key="entity_relationship_gleaning_done_extraction",
                     llm=llm,
-                    format_kwargs={},
+                    format_kwargs=prompt_kwargs,
                     response_model=TGleaningStatus,
                     history_messages=history,
                 )
@@ -132,7 +139,7 @@ class DefaultInformationExtractionService(BaseInformationExtractionService[TChun
         )
 
         # Do gleaning
-        chunk_graph_with_gleaning = await self._gleaning(llm, chunk_graph, history)
+        chunk_graph_with_gleaning = await self._gleaning(llm, chunk_graph, history, prompt_kwargs)
         if chunk_graph_with_gleaning:
             chunk_graph = chunk_graph_with_gleaning
 

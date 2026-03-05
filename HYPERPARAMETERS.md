@@ -12,7 +12,7 @@
 | Hyperparameter | Value in `run_fast-graphrag.py` |
 |----------------|----------------------------------|
 | `max_gleaning_steps` | **1** ✅ (explicitly configured) |
-| `chunk_token_size` | 800 (default) |
+| `chunk_token_size` | 600 (updated from default 800) |
 | `chunk_token_overlap` | 100 (default) |
 | `separators` | Default list (default) |
 | `entities_max_tokens` | 4000 (default) |
@@ -25,6 +25,7 @@
 | `node_summarization_ratio` | 0.5 (default) |
 | `n_checkpoints` | 0 (default) |
 | `max_requests_concurrent` | 1024 (default from env) |
+| `llm_retry_attempts` | 5 (updated from default 3) |
 
 **Total context budget (query):** 16,000 tokens (4,000 entities + 3,000 relations + 9,000 chunks)
 
@@ -35,8 +36,8 @@
 ### `chunk_token_size`
 **Location:** `fast_graphrag/_services/_chunk_extraction.py:32`
 **Type:** `int`
-**Default:** `800`
-**Current in `run_fast-graphrag.py`:** `800` (uses default)
+**Default:** `600` (updated from 800)
+**Current in `run_fast-graphrag.py`:** `600` (uses default)
 **Units:** tokens
 
 **Description:** Maximum size of each text chunk before splitting.
@@ -45,12 +46,17 @@
 - Larger values → Fewer chunks, more context per extraction, longer processing per chunk
 - Smaller values → More chunks, less context, faster per chunk but more total overhead
 
+**Recent Change:**
+- Reduced from 800 to 600 tokens to improve small model (gemma3:12b) reliability
+- Smaller chunks reduce cognitive load and improve structured output adherence
+
 **Recommendations by Model Size:**
 | Model Size | Recommended Value | Rationale |
 |------------|-------------------|-----------|
 | 0.5B - 1B | 400-600 | Reduce cognitive load on small models |
-| 3B - 7B | 800 (default) | Balanced context and speed |
-| 7B+ | 1000-1200 | Maximize context, reduce chunk count |
+| 3B - 7B | 600-800 | Balanced context and speed |
+| 7B - 12B | 600 (current) | Optimal for gemma3:12b reliability |
+| 14B+ | 800-1200 | Maximize context, reduce chunk count |
 
 **Example:**
 ```python
@@ -308,6 +314,29 @@ config=GraphRAG.Config(
 
 ## LLM Service Hyperparameters (Ollama-specific)
 
+### `llm_retry_attempts`
+**Location:** `fast_graphrag/_llm/_ollama.py:201`
+**Type:** `int`
+**Default:** `5` (updated from 3)
+**Range:** 1-10
+
+**Description:** Maximum number of retry attempts for LLM requests when validation or network errors occur.
+
+**Impact:**
+- Higher values → Better recovery from transient errors, longer wait times on persistent failures
+- Lower values → Faster failure detection, less tolerance for intermittent issues
+
+**Recent Change:**
+- Increased from 3 to 5 attempts to handle small model (gemma3:12b) inconsistency
+- Combined with auto-fix mechanism for Graph JSON validation errors
+
+**Retry Strategy:**
+- Exponential backoff: 4s → 8s → 16s → 30s (max)
+- Retries on: network errors, timeouts, JSON validation failures
+- Auto-fix applied after validation errors before retrying
+
+---
+
 ### `max_requests_concurrent`
 **Location:** `fast_graphrag/_llm/_base.py:73`
 **Type:** `int`
@@ -335,8 +364,9 @@ export CONCURRENT_TASK_LIMIT=4
 | Use Case | chunk_token_size | chunk_token_overlap | max_gleaning_steps | Model |
 |----------|------------------|---------------------|-------------------|-------|
 | **Dev/Testing** | 400-600 | 50 | 0 | 3B |
-| **Production (Speed)** | 1000-1200 | 150 | 1 | 7B+ |
-| **Production (Quality)** | 800-1000 | 100-150 | 2 | 7B+ |
+| **Production (Speed)** | 800-1000 | 150 | 1 | 14B+ |
+| **Production (Quality)** | 600-800 | 100-150 | 2 | 14B+ |
+| **Production (Small Model)** | 600 (current) | 100 | 1 | 7B-12B |
 | **Research (Max Quality)** | 800 | 150 | 3 | 14B+ |
 
 ---
@@ -346,8 +376,10 @@ export CONCURRENT_TASK_LIMIT=4
 | Configuration | Tokens/Doc | Time (3B) | Time (7B) |
 |---------------|-----------|-----------|-----------|
 | chunk=400, gleaning=0 | ~60,000 | 13 min | 7 min |
+| chunk=600, gleaning=0 | ~62,000 | 14 min | 7 min |
+| chunk=600, gleaning=1 | **~135,000** | **30 min** | **15 min** |
 | chunk=800, gleaning=0 | ~63,000 | 14 min | 7 min |
-| chunk=800, gleaning=1 | **~137,000** | **31 min** | **15 min** |
+| chunk=800, gleaning=1 | ~137,000 | 31 min | 15 min |
 | chunk=800, gleaning=2 | ~220,000 | 49 min | 24 min |
 | chunk=1200, gleaning=1 | ~91,000 | 20 min | 10 min |
 
@@ -413,13 +445,17 @@ logging.getLogger("graphrag").setLevel(logging.DEBUG)
 
 | Parameter | Default | Current (`run_fast-graphrag.py`) | Impact Level | Tune For |
 |-----------|---------|----------------------------------|--------------|----------|
-| `chunk_token_size` | 800 | 800 | ⭐⭐ Medium | Model size |
+| `chunk_token_size` | 600 | 600 | ⭐⭐⭐ High | Model size, reliability |
 | `chunk_token_overlap` | 100 | 100 | ⭐⭐⭐ High | Accuracy |
 | `max_gleaning_steps` | 0 | **1** ✅ | ⭐⭐⭐ High | Quality vs Speed |
+| `llm_retry_attempts` | 5 | 5 | ⭐⭐ Medium | Reliability |
 | `entities_max_tokens` | 4000 | 4000 | ⭐ Low | Query context |
 | `entity_ranking_policy.threshold` | 0.005 | 0.005 | ⭐⭐ Medium | Precision/Recall |
 | `insert_similarity_score_threshold` | 0.9 | 0.9 | ⭐⭐ Medium | Deduplication |
 
 **Most important:** `max_gleaning_steps` (currently enabled in production script)
 
-**Current production configuration:** Gleaning enabled with 1 iteration for improved quality
+**Current production configuration:**
+- Gleaning enabled with 1 iteration for improved quality
+- Chunk size reduced to 600 tokens for small model reliability
+- LLM retries increased to 5 with auto-fix for validation errors

@@ -79,17 +79,66 @@ def _extract_json_from_text(text: str) -> Optional[dict]:
     return None
 
 
+def _auto_fix_graph_json(json_data: dict) -> dict:
+    """Auto-fix incomplete Graph JSON by filling in missing required fields.
+
+    Args:
+        json_data: Potentially incomplete JSON data
+
+    Returns:
+        Fixed JSON data with all required fields
+    """
+    # Ensure top-level structure exists
+    if "entities" not in json_data:
+        json_data["entities"] = []
+    if "relationships" not in json_data:
+        json_data["relationships"] = []
+
+    # Fix entities
+    if isinstance(json_data["entities"], list):
+        for i, entity in enumerate(json_data["entities"]):
+            if isinstance(entity, dict):
+                if "name" not in entity:
+                    entity["name"] = f"UNKNOWN_ENTITY_{i}"
+                if "type" not in entity:
+                    entity["type"] = "UNKNOWN"
+                if "desc" not in entity or not entity["desc"]:
+                    entity["desc"] = f"Entity {entity.get('name', 'unknown')}"
+
+    # Fix relationships
+    if isinstance(json_data["relationships"], list):
+        fixed_relationships = []
+        for i, rel in enumerate(json_data["relationships"]):
+            if isinstance(rel, dict):
+                # Only keep relationships with both source and target
+                has_source = "source" in rel and rel["source"]
+                has_target = "target" in rel and rel["target"]
+
+                if has_source and has_target:
+                    # Fix description if missing
+                    if "desc" not in rel or not rel["desc"]:
+                        rel["desc"] = f"Relationship between {rel['source']} and {rel['target']}"
+                    fixed_relationships.append(rel)
+                else:
+                    # Skip incomplete relationships that can't be salvaged
+                    logger.warning(f"Skipping incomplete relationship at index {i}: missing {'source' if not has_source else 'target'}")
+
+        json_data["relationships"] = fixed_relationships
+
+    return json_data
+
+
 def _validate_graph_json(json_data: dict) -> list[str]:
     """Validate extracted JSON for Graph structure.
-    
+
     Args:
         json_data: Extracted JSON data
-        
+
     Returns:
         List of validation errors, empty list if valid
     """
     errors = []
-    
+
     # Check top-level structure
     if "entities" not in json_data:
         errors.append("Missing 'entities' field")
@@ -198,7 +247,7 @@ class OllamaLLMService(BaseLLMService):
             Tuple of (response_parsed, messages_list)
         """
         @retry(
-            stop=stop_after_attempt(3),
+            stop=stop_after_attempt(5),
             wait=wait_exponential(multiplier=2, min=4, max=30),
             retry=retry_if_exception_type((
                 aiohttp.ClientConnectorError,
@@ -281,10 +330,20 @@ class OllamaLLMService(BaseLLMService):
                                             if model_name == "TGraph" or "Graph" in model_name:
                                                 validation_errors = _validate_graph_json(json_data)
                                                 if validation_errors:
-                                                    # Validation failed - this will trigger a retry
-                                                    error_msg = "JSON validation failed:\n" + "\n".join(validation_errors)
-                                                    logger.warning(f"Validation error in Graph JSON: {error_msg}\nResponse: {response_text[:300]}")
-                                                    raise ValueError(error_msg)
+                                                    # Apply auto-fix to salvage incomplete data
+                                                    logger.warning(f"Validation errors detected: {', '.join(validation_errors)}")
+                                                    logger.info("Applying auto-fix to repair incomplete Graph JSON")
+                                                    json_data = _auto_fix_graph_json(json_data)
+
+                                                    # Re-validate after fix
+                                                    revalidation_errors = _validate_graph_json(json_data)
+                                                    if revalidation_errors:
+                                                        # Still invalid after auto-fix, trigger retry
+                                                        error_msg = "JSON validation failed after auto-fix:\n" + "\n".join(revalidation_errors)
+                                                        logger.error(f"Auto-fix failed: {error_msg}\nResponse: {response_text[:300]}")
+                                                        raise ValueError(error_msg)
+                                                    else:
+                                                        logger.info("✓ Auto-fix successful, proceeding with repaired data")
                                             
                                             # DEBUG: Log the actual JSON data before validation (only for debugging)
                                             logger.debug(f"🔍 DEBUG - Model: {model_name}")
