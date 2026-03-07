@@ -126,16 +126,17 @@ def run_async(coro):
         loop.close()
 
 
-async def initialize_hybrid_rag(working_dir: str, llm_model: str, embed_model: str, ollama_url: str):
+async def initialize_hybrid_rag(working_dir: str, llm_model: str, embed_model: str, ollama_url: str, corpus_name: str = "loaded_graph"):
     """
     Initialize HybridGraphRAG instance for querying existing graph.
-    (Based on run_hybrid_rag.py lines 338-344)
+    (Based on run_hybrid_rag.py lines 338-353)
 
     Args:
         working_dir: Directory containing graph data
         llm_model: LLM model name
         embed_model: Embedding model name
         ollama_url: Ollama server URL
+        corpus_name: Name for the corpus (default: "loaded_graph")
 
     Returns:
         Initialized HybridGraphRAG instance
@@ -147,6 +148,17 @@ async def initialize_hybrid_rag(working_dir: str, llm_model: str, embed_model: s
         llm_url=ollama_url,
         llm_model_max_async=2
     )
+
+    # CRITICAL: Must call index() to load existing graph data
+    # If data exists in working_dir, it will load it
+    # If data doesn't exist, it will create empty index
+    index_result = await hybrid_rag.index("", corpus_name)
+
+    if index_result["status"] != "success":
+        raise RuntimeError(f"Failed to initialize graph: {index_result.get('error', 'Unknown error')}")
+
+    logger.info(f"✅ Graph initialized: {index_result}")
+
     return hybrid_rag
 
 
