@@ -260,54 +260,69 @@ def main():
         # Graph Data Loading
         st.subheader("3. Load Graph Data")
 
-        # File selection method
-        selection_method = st.radio(
-            "Select graph data by:",
-            options=["Browse File System", "Enter Path Manually"],
-            horizontal=True
+        st.info("📁 Enter the full path to the working directory containing your indexed graph data (graphml, vectors, etc.)")
+
+        # Initialize directory path in session state if not exists
+        if 'directory_path' not in st.session_state:
+            st.session_state.directory_path = ""
+
+        working_dir = st.text_input(
+            "Working Directory Path",
+            value=st.session_state.directory_path,
+            placeholder="/path/to/hybrid_rag_workspace/Medical",
+            help="Full path to directory containing graph.graphml and all RAG artifacts"
         )
 
-        working_dir = None
+        # Helper: Show directory browser hint
+        with st.expander("💡 How to find the directory path"):
+            st.markdown("""
+            **On macOS/Linux:**
+            1. Open Terminal
+            2. Navigate to your directory: `cd /path/to/hybrid_rag_workspace/Medical`
+            3. Run: `pwd`
+            4. Copy the output path
 
-        if selection_method == "Browse File System":
-            graphml_file = st.file_uploader(
-                "Upload GraphML File",
-                type=['graphml'],
-                help="Select the .graphml file from your indexed graph data"
-            )
+            **On Windows:**
+            1. Open File Explorer
+            2. Navigate to your directory
+            3. Click the address bar
+            4. Copy the path (e.g., `C:\\Users\\...\\hybrid_rag_workspace\\Medical`)
 
-            if graphml_file is not None:
-                # Save uploaded file to temp location
-                temp_dir = os.path.join(os.path.expanduser("~"), ".streamlit_graphrag_temp")
-                os.makedirs(temp_dir, exist_ok=True)
+            **Relative paths work too:**
+            - `./hybrid_rag_workspace/Medical`
+            - `../data/Medical`
+            """)
 
-                # Save the graphml file
-                graphml_path = os.path.join(temp_dir, graphml_file.name)
-                with open(graphml_path, "wb") as f:
-                    f.write(graphml_file.getbuffer())
-
-                # Use temp directory as working_dir
-                working_dir = temp_dir
-                st.info(f"📄 File uploaded: {graphml_file.name}")
-
-                # Note about other required files
-                st.warning("⚠️ Note: The working directory should also contain vector indexes and other RAG artifacts. If using file upload, you may need to upload all files from the working directory.")
-
-        else:  # Enter Path Manually
-            working_dir = st.text_input(
-                "Working Directory Path",
-                value="",
-                help="Path to directory containing graph data (e.g., ./hybrid_rag_workspace/Medical)"
-            )
+        # Show current directory contents if path is provided
+        if working_dir and os.path.isdir(working_dir):
+            with st.expander("📂 Directory Contents"):
+                try:
+                    files = os.listdir(working_dir)
+                    if files:
+                        st.write("Files found:")
+                        for f in sorted(files):
+                            file_path = os.path.join(working_dir, f)
+                            if os.path.isfile(file_path):
+                                size = os.path.getsize(file_path)
+                                st.text(f"  📄 {f} ({size:,} bytes)")
+                            else:
+                                st.text(f"  📁 {f}/")
+                    else:
+                        st.warning("Directory is empty")
+                except Exception as e:
+                    st.error(f"Cannot read directory: {e}")
 
         if st.button("📂 Load Graph", use_container_width=True):
             if not st.session_state.models_loaded:
                 st.error("❌ Please connect to Ollama and select models first")
             elif not working_dir:
-                st.error("❌ Please provide a working directory path or upload a file")
-            elif selection_method == "Enter Path Manually" and not os.path.isdir(working_dir):
+                st.error("❌ Please provide a working directory path")
+            elif not os.path.isdir(working_dir):
                 st.error(f"❌ Directory not found: {working_dir}")
             else:
+                # Save to session state
+                st.session_state.directory_path = working_dir
+
                 with st.spinner("Loading graph data..."):
                     try:
                         hybrid_rag = run_async(
