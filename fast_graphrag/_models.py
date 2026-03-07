@@ -98,11 +98,11 @@ class TEntityDescription(BaseModel):
 
 class TQueryEntities(BaseModel):
     named: List[str] = Field(
-        ...,
+        default_factory=list,
         description=("List of named entities extracted from the query"),
     )
     generic: List[str] = Field(
-        ...,
+        default_factory=list,
         description=("List of generic entities extracted from the query"),
     )
 

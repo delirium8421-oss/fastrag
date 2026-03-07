@@ -189,6 +189,7 @@ class OllamaLLMService(BaseLLMService):
 
     model: str = field(default="qwen2.5-14b-instruct")
     timeout: int = field(default=1800)  # Increased to 30 minutes for slow models
+    request_timeout: int = field(default=600)  # Per-request timeout (10 minutes)
 
     def __post_init__(self):
         self.llm_max_requests_concurrent = (
@@ -300,8 +301,11 @@ class OllamaLLMService(BaseLLMService):
                             if response_model:
                                 payload["format"] = "json"
 
+                            # Configure timeout for this request
+                            timeout = aiohttp.ClientTimeout(total=self.request_timeout)
+
                             # Call Ollama API
-                            async with session.post(url, json=payload) as response:
+                            async with session.post(url, json=payload, timeout=timeout) as response:
                                 if response.status == 200:
                                     result = await response.json()
                                     response_text = result.get("message", {}).get("content", "")
