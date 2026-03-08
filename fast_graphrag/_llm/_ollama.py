@@ -2,13 +2,16 @@
 
 import asyncio
 import json
+import os
 import re
 from dataclasses import dataclass, field
 from typing import Any, Optional, Tuple, Type
 
 import aiohttp
 import numpy as np
+import ollama
 from aiolimiter import AsyncLimiter
+from ollama import ResponseError
 from pydantic import BaseModel
 from tenacity import (
     retry,
@@ -207,25 +210,40 @@ class OllamaLLMService(BaseLLMService):
             if self.rate_limit_per_second
             else NoopAsyncContextManager()
         )
-        self.session = None
         logger.debug("Initialized OllamaLLMService.")
 
-    async def _get_session(self) -> aiohttp.ClientSession:
-        """Get or create aiohttp session."""
-        if self.session is None:
-            timeout = aiohttp.ClientTimeout(total=self.timeout)
-            connector = aiohttp.TCPConnector(
-                limit=10,
-                limit_per_host=5,
-            )
-            self.session = aiohttp.ClientSession(timeout=timeout, connector=connector)
-        return self.session
+    def _create_ollama_client(self) -> ollama.AsyncClient:
+        """Create Ollama async client with proper configuration."""
+        base_url = self.base_url
 
-    async def close(self):
-        """Close the aiohttp session."""
-        if self.session:
-            await self.session.close()
-            self.session = None
+        # Normalize localhost URLs
+        if ("localhost" in base_url or "127.0.0.1" in base_url) and base_url.startswith("https://"):
+            base_url = base_url.replace("https://", "http://")
+            logger.debug(f"Normalized localhost URL from https to http: {base_url}")
+
+        headers = {
+            "Content-Type": "application/json",
+            "User-Agent": "FastGraphRAG/0.0.5",
+        }
+
+        api_key = os.getenv("OLLAMA_API_KEY")
+        if api_key:
+            headers["Authorization"] = f"Bearer {api_key}"
+
+        return ollama.AsyncClient(
+            host=base_url,
+            timeout=self.request_timeout,
+            headers=headers,
+        )
+
+    async def _collect_stream(self, stream) -> str:
+        """Collect streaming response into single string."""
+        parts = []
+        async for chunk in stream:
+            content = chunk.get("message", {}).get("content", "")
+            if content:
+                parts.append(content)
+        return "".join(parts)
 
     async def send_message(
         self,
@@ -251,8 +269,7 @@ class OllamaLLMService(BaseLLMService):
             stop=stop_after_attempt(5),
             wait=wait_exponential(multiplier=2, min=4, max=30),
             retry=retry_if_exception_type((
-                aiohttp.ClientConnectorError,
-                aiohttp.ClientError,
+                ResponseError,
                 asyncio.TimeoutError,
                 LLMServiceNoResponseError
             )),
@@ -263,14 +280,13 @@ class OllamaLLMService(BaseLLMService):
                     async with self.llm_per_second_limiter:
                         try:
                             logger.debug(f"Sending message to Ollama: {prompt[:100]}...")
-                            session = await self._get_session()
 
                             # Build messages list
                             messages: list[dict[str, str]] = []
 
                             if system_prompt:
                                 messages.append({"role": "system", "content": system_prompt})
-                                logger.debug(f"Added system prompt")
+                                logger.debug("Added system prompt")
 
                             if history_messages:
                                 messages.extend(history_messages)
@@ -278,122 +294,115 @@ class OllamaLLMService(BaseLLMService):
 
                             messages.append({"role": "user", "content": prompt})
 
-                            # Normalize URL - convert https:// to http:// for localhost
-                            base_url = self.base_url
-                            if ("localhost" in base_url or "127.0.0.1" in base_url) and base_url.startswith("https://"):
-                                base_url = base_url.replace("https://", "http://")
-                                logger.debug(f"Normalized localhost URL from https to http: {base_url}")
+                            # Create client for this request
+                            client = self._create_ollama_client()
 
-                            # Prepare Ollama API call
-                            url = f"{base_url}/api/chat"
-                            payload = {
-                                "model": self.model,
-                                "messages": messages,
-                                "stream": False,
-                                "options": {
-                                    "temperature": kwargs.get("temperature", 0.0),
-                                    "num_ctx": kwargs.get("num_ctx", 32768),
-                                    "top_p": kwargs.get("top_p", 1),
-                                },
-                            }
-                            
-                            # Request JSON format if response_model is provided
+                            try:
+                                # Determine format
+                                format_json = "json" if response_model else None
+
+                                # Call ollama SDK with streaming
+                                response_stream = await client.chat(
+                                    model=self.model,
+                                    messages=messages,
+                                    format=format_json,
+                                    stream=True,  # Always stream
+                                    options={
+                                        "temperature": kwargs.get("temperature", 0.0),
+                                        "num_ctx": kwargs.get("num_ctx", 32768),
+                                        "top_p": kwargs.get("top_p", 1),
+                                    },
+                                )
+
+                                # Collect streaming response
+                                response_text = await self._collect_stream(response_stream)
+
+                                if not response_text:
+                                    logger.error("No response text received from Ollama")
+                                    raise LLMServiceNoResponseError(
+                                        "No response received from Ollama"
+                                    )
+
+                            finally:
+                                try:
+                                    await client._client.aclose()
+                                    logger.debug("Closed Ollama client")
+                                except Exception:
+                                    pass
+
+                            # Parse response if response_model is provided
                             if response_model:
-                                payload["format"] = "json"
-
-                            # Configure timeout for this request
-                            timeout = aiohttp.ClientTimeout(total=self.request_timeout)
-
-                            # Call Ollama API
-                            async with session.post(url, json=payload, timeout=timeout) as response:
-                                if response.status == 200:
-                                    result = await response.json()
-                                    response_text = result.get("message", {}).get("content", "")
-
-                                    if not response_text:
-                                        logger.error("No response text received from Ollama")
-                                        raise LLMServiceNoResponseError(
-                                            "No response received from Ollama"
+                                try:
+                                    # Try to extract and parse JSON
+                                    json_data = _extract_json_from_text(response_text)
+                                    if json_data is None:
+                                        raise json.JSONDecodeError(
+                                            f"Could not extract JSON from response: {response_text[:200]}",
+                                            response_text,
+                                            0
                                         )
 
-                                    # Parse response if response_model is provided
-                                    if response_model:
-                                        try:
-                                            # Try to extract and parse JSON
-                                            json_data = _extract_json_from_text(response_text)
-                                            if json_data is None:
-                                                raise json.JSONDecodeError(
-                                                    f"Could not extract JSON from response: {response_text[:200]}",
-                                                    response_text,
-                                                    0
-                                                )
-                                            
-                                            # Validate if it's a Graph type
-                                            model_name = response_model.__name__ if hasattr(response_model, '__name__') else str(response_model)
-                                            
-                                            if model_name == "TGraph" or "Graph" in model_name:
-                                                validation_errors = _validate_graph_json(json_data)
-                                                if validation_errors:
-                                                    # Apply auto-fix to salvage incomplete data
-                                                    logger.warning(f"Validation errors detected: {', '.join(validation_errors)}")
-                                                    logger.info("Applying auto-fix to repair incomplete Graph JSON")
-                                                    json_data = _auto_fix_graph_json(json_data)
+                                    # Validate if it's a Graph type
+                                    model_name = response_model.__name__ if hasattr(response_model, '__name__') else str(response_model)
 
-                                                    # Re-validate after fix
-                                                    revalidation_errors = _validate_graph_json(json_data)
-                                                    if revalidation_errors:
-                                                        # Still invalid after auto-fix, trigger retry
-                                                        error_msg = "JSON validation failed after auto-fix:\n" + "\n".join(revalidation_errors)
-                                                        logger.error(f"Auto-fix failed: {error_msg}\nResponse: {response_text[:300]}")
-                                                        raise ValueError(error_msg)
-                                                    else:
-                                                        logger.info("✓ Auto-fix successful, proceeding with repaired data")
-                                            
-                                            # DEBUG: Log the actual JSON data before validation (only for debugging)
-                                            logger.debug(f"🔍 DEBUG - Model: {model_name}")
-                                            logger.debug(f"🔍 DEBUG - JSON Data: {json.dumps(json_data, indent=2)}")
+                                    if model_name == "TGraph" or "Graph" in model_name:
+                                        validation_errors = _validate_graph_json(json_data)
+                                        if validation_errors:
+                                            # Apply auto-fix to salvage incomplete data
+                                            logger.warning(f"Validation errors detected: {', '.join(validation_errors)}")
+                                            logger.info("Applying auto-fix to repair incomplete Graph JSON")
+                                            json_data = _auto_fix_graph_json(json_data)
 
-                                            # Handle BaseModelAlias types which have a .Model inner class
-                                            if issubclass(response_model, BaseModelAlias):
-                                                # Use the Pydantic Model class to parse
-                                                pydantic_model = response_model.Model(**json_data)
-                                                # Convert to dataclass using to_dataclass
-                                                llm_response = pydantic_model.to_dataclass(pydantic_model)
+                                            # Re-validate after fix
+                                            revalidation_errors = _validate_graph_json(json_data)
+                                            if revalidation_errors:
+                                                # Still invalid after auto-fix, trigger retry
+                                                error_msg = "JSON validation failed after auto-fix:\n" + "\n".join(revalidation_errors)
+                                                logger.error(f"Auto-fix failed: {error_msg}\nResponse: {response_text[:300]}")
+                                                raise ValueError(error_msg)
                                             else:
-                                                # Regular Pydantic model
-                                                llm_response = response_model(**json_data)
-                                        except (json.JSONDecodeError, TypeError, ValueError) as e:
-                                            logger.error(
-                                                f"Failed to parse response as {response_model.__name__}: {e}. "
-                                                f"Response text: {response_text[:300]}"
-                                            )
-                                            raise LLMServiceNoResponseError(
-                                                f"Failed to parse response as {response_model.__name__}: {str(e)}"
-                                            )
+                                                logger.info("✓ Auto-fix successful, proceeding with repaired data")
+
+                                    # DEBUG: Log the actual JSON data before validation (only for debugging)
+                                    logger.debug(f"🔍 DEBUG - Model: {model_name}")
+                                    logger.debug(f"🔍 DEBUG - JSON Data: {json.dumps(json_data, indent=2)}")
+
+                                    # Handle BaseModelAlias types which have a .Model inner class
+                                    if issubclass(response_model, BaseModelAlias):
+                                        # Use the Pydantic Model class to parse
+                                        pydantic_model = response_model.Model(**json_data)
+                                        # Convert to dataclass using to_dataclass
+                                        llm_response = pydantic_model.to_dataclass(pydantic_model)
                                     else:
-                                        llm_response = response_text
+                                        # Regular Pydantic model
+                                        llm_response = response_model(**json_data)
+                                except (json.JSONDecodeError, TypeError, ValueError) as e:
+                                    logger.error(
+                                        f"Failed to parse response as {response_model.__name__}: {e}. "
+                                        f"Response text: {response_text[:300]}"
+                                    )
+                                    raise LLMServiceNoResponseError(
+                                        f"Failed to parse response as {response_model.__name__}: {str(e)}"
+                                    )
+                            else:
+                                llm_response = response_text
 
-                                    # Add response to messages
-                                    messages.append(
-                                        {
-                                            "role": "assistant",
-                                            "content": (
-                                                llm_response.model_dump_json()
-                                                if isinstance(llm_response, BaseModel)
-                                                else str(response_text)
-                                            ),
-                                        }
-                                    )
+                            # Add response to messages
+                            messages.append(
+                                {
+                                    "role": "assistant",
+                                    "content": (
+                                        llm_response.model_dump_json()
+                                        if isinstance(llm_response, BaseModel)
+                                        else str(response_text)
+                                    ),
+                                }
+                            )
 
-                                    logger.debug(
-                                        f"Received response from Ollama: {str(llm_response)[:100]}..."
-                                    )
-                                    return llm_response, messages
-                                else:
-                                    error_text = await response.text()
-                                    raise RuntimeError(
-                                        f"Ollama API error (status {response.status}): {error_text}"
-                                    )
+                            logger.debug(
+                                f"Received response from Ollama: {str(llm_response)[:100]}..."
+                            )
+                            return llm_response, messages
 
                         except Exception:
                             logger.exception("Error sending message to Ollama", exc_info=True)
@@ -426,25 +435,31 @@ class OllamaEmbeddingService(BaseEmbeddingService):
             if self.rate_limit_per_second
             else NoopAsyncContextManager()
         )
-        self.session = None
         logger.debug("Initialized OllamaEmbeddingService.")
 
-    async def _get_session(self) -> aiohttp.ClientSession:
-        """Get or create aiohttp session."""
-        if self.session is None:
-            timeout = aiohttp.ClientTimeout(total=self.timeout)
-            connector = aiohttp.TCPConnector(
-                limit=10,
-                limit_per_host=5,
-            )
-            self.session = aiohttp.ClientSession(timeout=timeout, connector=connector)
-        return self.session
+    def _create_ollama_client(self) -> ollama.AsyncClient:
+        """Create Ollama async client for embeddings."""
+        base_url = self.base_url
 
-    async def close(self):
-        """Close the aiohttp session."""
-        if self.session:
-            await self.session.close()
-            self.session = None
+        # Normalize localhost URLs
+        if ("localhost" in base_url or "127.0.0.1" in base_url) and base_url.startswith("https://"):
+            base_url = base_url.replace("https://", "http://")
+            logger.debug(f"Normalized localhost URL from https to http: {base_url}")
+
+        headers = {
+            "Content-Type": "application/json",
+            "User-Agent": "FastGraphRAG/0.0.5",
+        }
+
+        api_key = os.getenv("OLLAMA_API_KEY")
+        if api_key:
+            headers["Authorization"] = f"Bearer {api_key}"
+
+        return ollama.AsyncClient(
+            host=base_url,
+            timeout=self.timeout,
+            headers=headers,
+        )
 
     async def encode(
         self, texts: list[str], model: Optional[str] = None
@@ -461,32 +476,33 @@ class OllamaEmbeddingService(BaseEmbeddingService):
         try:
             logger.debug(f"Getting embeddings for {len(texts)} texts")
 
-            # Use provided model or fall back to self.model
             embedding_model = model or self.model
             if not embedding_model:
-                raise ValueError(
-                    "No model specified for Ollama embedding. Set via 'model' parameter or attribute."
-                )
+                raise ValueError("No model specified for Ollama embedding")
 
-            # Batch texts
-            batched_texts = [
-                texts[
-                    i
-                    * self.max_elements_per_request : (i + 1)
-                    * self.max_elements_per_request
-                ]
-                for i in range(
-                    (len(texts) + self.max_elements_per_request - 1)
-                    // self.max_elements_per_request
-                )
-            ]
+            # Adopt LightRAG's batching strategy
+            MAX_BATCH_SIZE = 100
 
-            responses = await asyncio.gather(
-                *[self._embedding_request(batch, embedding_model) for batch in batched_texts]
-            )
-            embeddings = np.vstack(responses)
-            logger.debug(f"Received {len(embeddings)} embeddings")
-            return embeddings
+            if len(texts) <= MAX_BATCH_SIZE:
+                # Small batch: process directly
+                return await self._embed_batch(texts, embedding_model)
+            else:
+                # Large batch: split and process
+                logger.info(f"Splitting {len(texts)} texts into batches of {MAX_BATCH_SIZE}")
+                all_embeddings = []
+
+                for i in range(0, len(texts), MAX_BATCH_SIZE):
+                    batch = texts[i:i + MAX_BATCH_SIZE]
+                    batch_num = i // MAX_BATCH_SIZE + 1
+                    logger.debug(f"Processing batch {batch_num}: {len(batch)} texts")
+
+                    batch_embeddings = await self._embed_batch(batch, embedding_model)
+                    all_embeddings.append(batch_embeddings)
+                    logger.debug(f"Batch {batch_num} complete")
+
+                logger.info(f"Successfully embedded all {len(texts)} texts")
+                return np.vstack(all_embeddings)
+
         except Exception:
             logger.exception("An error occurred during Ollama embedding.", exc_info=True)
             raise
@@ -494,60 +510,46 @@ class OllamaEmbeddingService(BaseEmbeddingService):
     @retry(
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=4, max=10),
-        retry=retry_if_exception_type((RuntimeError, aiohttp.ClientError)),
+        retry=retry_if_exception_type((RuntimeError, ResponseError)),
     )
-    async def _embedding_request(
-        self, input_texts: list[str], model: str
+    async def _embed_batch(
+        self, texts: list[str], model: str
     ) -> np.ndarray:
-        """Make embedding request to Ollama API.
+        """Embed a batch of texts using ollama SDK.
 
         Args:
-            input_texts: Texts to embed
-            model: Model name to use
+            texts: Texts to embed
+            model: Model name
 
         Returns:
-            NumPy array of embeddings with shape (len(input_texts), embedding_dim)
+            NumPy array with shape (len(texts), embedding_dim)
         """
         async with self.embedding_max_requests_concurrent:
             async with self.embedding_per_minute_limiter:
                 async with self.embedding_per_second_limiter:
-                    logger.debug(f"Embedding request for batch size: {len(input_texts)}")
-                    session = await self._get_session()
+                    client = self._create_ollama_client()
 
-                    # Normalize URL - convert https:// to http:// for localhost
-                    base_url = self.base_url
-                    if ("localhost" in base_url or "127.0.0.1" in base_url) and base_url.startswith("https://"):
-                        base_url = base_url.replace("https://", "http://")
-                        logger.debug(f"Normalized localhost URL from https to http: {base_url}")
+                    try:
+                        # Call ollama SDK embed API
+                        # NOTE: ollama accepts list of texts directly
+                        result = await client.embed(
+                            model=model,
+                            input=texts,  # Can be list
+                        )
 
-                    url = f"{base_url}/api/embed"
-                    embeddings_list = []
-                    
-                    for text in input_texts:
+                        embeddings = result.get("embeddings", [])
+                        if not embeddings:
+                            logger.warning(f"Empty embeddings returned for {len(texts)} texts")
+                            return np.zeros((len(texts), self.embedding_dim))
+
+                        return np.array(embeddings, dtype=np.float32)
+
+                    except ResponseError as e:
+                        logger.error(f"Ollama embedding failed: {e}")
+                        raise RuntimeError(f"Ollama embedding failed: {e}")
+
+                    finally:
                         try:
-                            payload = {"model": model, "input": text}
-                            async with session.post(url, json=payload) as response:
-                                if response.status == 200:
-                                    result = await response.json()
-                                    embedding = np.array(result.get("embedding", []))
-                                    if len(embedding) == 0:
-                                        logger.warning(
-                                            f"Empty embedding returned for text: {text[:50]}..."
-                                        )
-                                        # Return zero embedding if empty
-                                        embedding = np.zeros(self.embedding_dim)
-                                    embeddings_list.append(embedding)
-                                else:
-                                    error_text = await response.text()
-                                    raise RuntimeError(
-                                        f"Ollama embedding failed with status {response.status}: {error_text}"
-                                    )
-                        except aiohttp.ClientError as e:
-                            logger.error(f"Error embedding text: {e}")
-                            raise
-                    
-                    # Stack all embeddings
-                    if embeddings_list:
-                        return np.vstack(embeddings_list)
-                    else:
-                        return np.zeros((len(input_texts), self.embedding_dim))
+                            await client._client.aclose()
+                        except Exception:
+                            pass

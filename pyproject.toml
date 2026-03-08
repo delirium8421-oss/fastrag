@@ -27,6 +27,7 @@ vertexai = "^1.71.1"
 sentencepiece = "^0.2.0"
 json-repair = "^0.39.1"
 voyageai = "^0.3.2"
+ollama = "^0.4.4"
 
 
 [tool.poetry.group.dev.dependencies]
